@@ -43,8 +43,14 @@
 }
 
 @layer base {
+  html {
+    background-color: black;
+    overscroll-behavior-y: none;
+  }
   body {
     @apply bg-black text-white overflow-x-hidden;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
   }
 }
 

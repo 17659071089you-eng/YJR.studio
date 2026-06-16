@@ -89,7 +89,7 @@ export function Navbar() {
 
   return (
     <>
-      <div className="fixed top-4 md:top-6 left-0 right-0 z-[60] flex flex-col items-center pointer-events-none px-4 md:px-0">
+      <div className="fixed top-[max(1rem,env(safe-area-inset-top))] md:top-6 left-0 right-0 z-[60] flex flex-col items-center pointer-events-none px-4 md:px-0 w-full">
         <motion.nav
           className={cn(
             'pointer-events-auto transition-all duration-500 flex items-center w-full md:w-auto justify-between md:justify-center',
@@ -155,9 +155,9 @@ export function Navbar() {
         {/* Status Indicator */}
         <motion.div
           className={cn(
-            "absolute right-6 overflow-hidden md:right-8 top-16 md:top-3 pointer-events-auto flex flex-row items-center space-x-2.5 bg-white/5 hover:bg-white/10 transition-colors backdrop-blur-md border border-white/10 rounded-full cursor-pointer md:px-4 md:py-2",
+            "fixed md:absolute right-4 md:right-8 top-[max(1.25rem,env(safe-area-inset-top))] md:top-3 pointer-events-auto flex flex-row items-center md:space-x-2.5 bg-transparent md:bg-white/5 md:hover:bg-white/10 transition-colors md:backdrop-blur-md border-transparent md:border md:border-white/10 rounded-full cursor-pointer md:px-4 md:py-2",
             isScrolled && "md:pointer-events-none",
-            "px-2 py-1.5 md:flex", // adjust for mobile
+            "p-2 md:p-0", // give some hit area on mobile
              isMobileMenuOpen && "hidden" // hide on mobile when menu opens
           )}
           initial={{ opacity: 0, y: 30 }}

@@ -107,7 +107,7 @@ export function Hero() {
         {/* Invisible Hitbox scaled down by ~30% to fit the actual core visible animation */}
         <div 
           id="hero-colored-area"
-          className="absolute z-20 w-[71%] md:w-[53%] h-[50vh] translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
+          className="absolute z-20 w-[85%] md:w-[53%] h-[60vh] md:h-[50vh] translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
 
         <motion.video
@@ -117,7 +117,7 @@ export function Hero() {
           muted
           playsInline
           preload="auto"
-          className="w-full md:w-[76%] max-h-[71vh] object-contain mix-blend-screen translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none"
+          className="w-full md:w-[76%] max-h-[85vh] md:max-h-[71vh] object-contain mix-blend-screen translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.2] md:scale-100"
           src="https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/%E5%8A%A8%E7%94%BB2.1.mp4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
