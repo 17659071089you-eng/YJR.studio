@@ -13,7 +13,7 @@ function ContactCard({ contact, copiedId, handleCopy, setIsQrModalOpen }: { cont
   const Icon = contact.icon;
   return (
     <motion.div
-      className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 min-h-[176px] h-auto md:h-60 rounded-2xl cursor-pointer group relative overflow-hidden transition-colors duration-300 hover:bg-white/5 flex flex-col items-center justify-center text-center"
+      className="bg-[#0a0a0a] border border-white/10 p-3 md:p-8 aspect-square md:aspect-auto md:min-h-[176px] md:h-60 rounded-2xl cursor-pointer group relative overflow-hidden transition-colors duration-300 hover:bg-white/5 flex flex-col items-center justify-center text-center"
       whileHover={{ scale: 1.02, y: -4 }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
       onClick={() => {
@@ -31,20 +31,26 @@ function ContactCard({ contact, copiedId, handleCopy, setIsQrModalOpen }: { cont
         }
       }}
     >
-      <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center relative z-10 transition-all duration-300 mb-4 md:mb-6">
+      <div className="w-8 h-8 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center relative z-10 transition-all duration-300 md:mb-6">
         {contact.type === 'lucide' ? (
-          <Icon className="w-6 h-6 md:w-7 md:h-7 text-white/80 transition-colors duration-300" strokeWidth={2} />
+          <Icon className="w-4 h-4 md:w-7 md:h-7 text-white/80 transition-colors duration-300" strokeWidth={2} />
         ) : (
-          <img src={contact.icon} alt={contact.label} className="w-6 h-6 md:w-7 md:h-7 invert opacity-80 transition-opacity duration-300" />
+          <img src={contact.icon} alt={contact.label} className="w-4 h-4 md:w-7 md:h-7 invert opacity-80 transition-opacity duration-300" />
         )}
       </div>
 
-      <div className="flex flex-col gap-1.5 relative z-10 w-full">
+      <div className="hidden md:flex flex-col gap-1.5 relative z-10 w-full">
         <span className="text-white text-3xl md:text-3xl lg:text-4xl font-extrabold tracking-tight">
           {contact.label}
         </span>
         <span className="text-white/60 text-[10px] md:text-xs lg:text-sm font-light tracking-wide break-all px-2">
           {copiedId === contact.id ? <span className="text-green-400 font-medium">COPIED!</span> : contact.value}
+        </span>
+      </div>
+      
+      <div className="flex md:hidden flex-col gap-1 relative z-10 w-full mt-2">
+        <span className="text-white/90 text-[10px] font-semibold tracking-wider uppercase">
+          {copiedId === contact.id ? <span className="text-green-400">COPIED!</span> : contact.label}
         </span>
       </div>
 
@@ -82,35 +88,33 @@ export function ContactFooter() {
   };
 
   return (
-    <footer id="contact" className="relative pt-12 md:pt-24 pb-32 -mt-16 md:-mt-32 px-6 md:px-12 overflow-hidden z-20 flex justify-center">
+    <footer id="contact" className="relative pt-12 md:pt-24 pb-32 -mt-32 md:-mt-32 px-6 md:px-12 overflow-hidden z-20 flex justify-center">
       <div className="max-w-[1440px] mx-auto w-full">
-        <div className="mb-24 flex flex-col items-center justify-center w-full space-y-4">
+        <div className="mb-10 md:mb-24 flex flex-col items-center justify-center w-full space-y-4">
           <TextPressure 
             text="THANK YOU." 
             highlightWords={['YOU.']}
             highlightGradient="linear-gradient(45deg, #ec4899, #f97316)"
-            className="tracking-tight text-white flex justify-center text-center hidden md:flex"
+            className="tracking-tight text-white flex justify-center text-center flex-nowrap whitespace-nowrap"
             style={{
               fontFamily: 'JosefinSansBold, system-ui',
-              fontSize: '106px',
+              fontSize: 'clamp(36px, 12vw, 106px)',
               fontWeight: 'normal',
               fontStyle: 'normal',
               textDecorationLine: 'none',
-              lineHeight: '95px',
+              lineHeight: '0.9',
               textTransform: 'none',
               transform: 'scaleY(0.85)',
               transformOrigin: 'top'
             }}
           />
-          <h2 className="md:hidden text-4xl font-extrabold tracking-tight text-white text-center transform scale-y-90 uppercase" style={{ fontFamily: 'JosefinSansBold, system-ui' }}>
-            THANK YOU.
-          </h2>
           <div className="max-w-xl text-center text-white/80 text-base md:text-lg font-light tracking-wide leading-relaxed">
-            Let's create something together. Feel free to reach out for freelance opportunities or creative collaborations.
+            <span className="md:hidden">Let's create something together.</span>
+            <span className="hidden md:inline">Let's create something together. Feel free to reach out for freelance opportunities or creative collaborations.</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-32 perspective-1000 w-full">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8 mb-32 perspective-1000 w-full max-w-sm md:max-w-none mx-auto">
           {contacts.map((contact) => (
             <ContactCard 
               key={contact.id} 
@@ -125,7 +129,7 @@ export function ContactFooter() {
         {/* Footer Signature */}
         <div className="border-t border-white/10 pt-12 flex items-center justify-center">
           <p className="text-white/40 text-xs md:text-sm font-mono text-center mb-4 md:mb-0">
-            © {new Date().getFullYear()} JR.PORTFOLIO. ALL RIGHTS RESERVED.
+            © {new Date().getFullYear()} YJR.PORTFOLIO. ALL RIGHTS RESERVED.
           </p>
         </div>
       </div>

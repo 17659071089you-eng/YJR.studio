@@ -114,33 +114,33 @@ export function Projects() {
             <TextPressure 
               text="Selected" 
               disableHover={true}
-              className="tracking-tight text-white text-left"
+              className="tracking-tight text-white text-left whitespace-nowrap"
               style={{
                 fontFamily: 'JosefinSansBold, system-ui',
-                fontSize: '106px',
+                fontSize: 'min(106px, 21.5vw)',
                 fontWeight: 'normal',
                 fontStyle: 'normal',
                 textDecorationLine: 'none',
-                lineHeight: '95px',
+                lineHeight: '0.9',
                 textTransform: 'none',
                 transform: 'scaleY(0.85)',
-                transformOrigin: 'bottom'
+                transformOrigin: 'bottom left'
               }}
             />
             <TextPressure 
               text="Works" 
               highlightWords={['Works']}
-              className="tracking-tight text-white text-left"
+              className="tracking-tight text-white text-left whitespace-nowrap"
               style={{
                 fontFamily: 'JosefinSansBold, system-ui',
-                fontSize: '106px',
+                fontSize: 'min(106px, 21.5vw)',
                 fontWeight: 'normal',
                 fontStyle: 'normal',
                 textDecorationLine: 'none',
-                lineHeight: '95px',
+                lineHeight: '0.9',
                 textTransform: 'none',
                 transform: 'scaleY(0.85)',
-                transformOrigin: 'top'
+                transformOrigin: 'top left'
               }}
             />
           </div>

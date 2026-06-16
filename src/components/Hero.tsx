@@ -107,7 +107,7 @@ export function Hero() {
         {/* Invisible Hitbox scaled down by ~30% to fit the actual core visible animation */}
         <div 
           id="hero-colored-area"
-          className="absolute z-20 w-[71%] md:w-[53%] h-[50vh] translate-y-[5%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
+          className="absolute z-20 w-[71%] md:w-[53%] h-[50vh] translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
 
         <motion.video
@@ -117,7 +117,7 @@ export function Hero() {
           muted
           playsInline
           preload="auto"
-          className="w-[102%] md:w-[76%] max-h-[71vh] object-contain mix-blend-screen translate-y-[5%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none"
+          className="w-full md:w-[76%] max-h-[71vh] object-contain mix-blend-screen translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none"
           src="https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/%E5%8A%A8%E7%94%BB2.1.mp4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -174,7 +174,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled ? -10 : 0 }}
           transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="z-20 mt-[44vh] md:mt-[52vh] mb-4 text-white/75 text-lg md:text-2xl font-light tracking-wide flex flex-col md:flex-row items-center text-center pointer-events-auto"
+          className="z-20 mt-[32vh] md:mt-[52vh] mb-4 text-white/75 text-lg md:text-2xl font-light tracking-wide flex flex-col md:flex-row items-center text-center pointer-events-auto"
         >
           <div className="flex items-center mb-1 md:mb-0">
             A<span 

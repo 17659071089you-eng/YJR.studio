@@ -130,7 +130,7 @@ export function Navbar() {
                   }}
                 />
               </svg>
-              <span className="text-[10px] md:text-xs font-bold tracking-tighter">JR</span>
+              <span className="text-[10px] md:text-xs font-bold tracking-tighter">YJR</span>
             </div>
 
             <div className="hidden md:flex items-center gap-8">

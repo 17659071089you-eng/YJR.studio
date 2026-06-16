@@ -30,7 +30,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="bg-black min-h-screen text-white selection:bg-white/30 relative">
+    <div className="bg-black min-h-screen w-full overflow-x-hidden text-white selection:bg-white/30 relative">
       <CustomCursor />
       {/* Background for everything except Hero */}
       <div className="global-bg-effect">

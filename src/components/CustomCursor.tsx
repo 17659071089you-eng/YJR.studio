@@ -2,11 +2,26 @@ import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useScroll, useVelocity, useAnimationFrame } from 'motion/react';
 
 export function CustomCursor() {
+  const [isMobile, setIsMobile] = useState(false);
   const [isHoveringVideo, setIsHoveringVideo] = useState(false);
   const [isHoveringButton, setIsHoveringButton] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(
+        window.matchMedia('(max-width: 768px)').matches || 
+        ('ontouchstart' in window) || 
+        navigator.maxTouchPoints > 0
+      );
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Smooth spring physics for the cursor
   const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
   const cursorXSpring = useSpring(cursorX, springConfig);
@@ -33,6 +48,8 @@ export function CustomCursor() {
   });
 
   useEffect(() => {
+    if (isMobile) return;
+
     let lastTarget: Element | null = null;
     let isVideoFrame = false;
     let isBtnFrame = false;
@@ -83,6 +100,11 @@ export function CustomCursor() {
 
   // Hide default cursor globally when this component mounts
   useEffect(() => {
+    if (isMobile) {
+      document.body.style.cursor = 'auto';
+      return;
+    }
+
     document.body.style.cursor = 'none';
     
     // Also hide cursor on interactive elements to prevent default pointer from showing
@@ -94,9 +116,13 @@ export function CustomCursor() {
     
     return () => {
       document.body.style.cursor = 'auto';
-      document.head.removeChild(style);
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <motion.div
