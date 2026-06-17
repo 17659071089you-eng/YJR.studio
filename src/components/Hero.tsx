@@ -177,7 +177,7 @@ export function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[-50px] md:translate-y-0 pointer-events-none">
+      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[-75px] md:translate-y-0 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled ? -10 : 0 }}
