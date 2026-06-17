@@ -106,12 +106,12 @@ export function Profile() {
             <div className="lg:col-span-5 flex justify-center lg:justify-start perspective-1000 w-full">
               <motion.div
                 style={{ rotateX: portraitRotateX, rotateY: portraitRotateY, transformStyle: 'preserve-3d' }}
-                className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden group cursor-pointer lg:max-w-[500px]"
+                className="relative w-full aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group cursor-pointer lg:max-w-[500px]"
               >
                 <img
                   src="https://wsrv.nl/?url=https%3A%2F%2Fpub-09c21faf928f44ddb7f174a2fc18cfc9.r2.dev%2Fself.jpg&output=webp"
                   alt="Portrait"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top md:object-center"
                   referrerPolicy="no-referrer"
                 />
               </motion.div>

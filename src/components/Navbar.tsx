@@ -89,6 +89,16 @@ export function Navbar() {
 
   return (
     <>
+      {/* Top Gradient/Blur Mask for Mobile */}
+      <div 
+        className={cn(
+          "fixed top-0 left-0 right-0 h-32 z-[45] pointer-events-none transition-opacity duration-700 md:hidden",
+          "bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-[4px]",
+          isScrolled ? "opacity-100" : "opacity-0"
+        )}
+        style={{ WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)', maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)' }}
+      />
+      
       <div className="fixed top-[calc(max(1rem,env(safe-area-inset-top))+25px)] md:top-[calc(1.5rem+20px)] left-0 right-0 z-[60] flex flex-col items-center pointer-events-none px-4 md:px-0 w-full">
         {/* Logo at top-left */}
         <motion.div 
@@ -185,7 +195,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[55] bg-black/80 backdrop-blur-xl flex flex-col items-center justify-center px-6 pt-20 pb-10 pointer-events-auto md:hidden"
+            className="fixed inset-0 z-[55] bg-black/80 bg-gradient-to-b from-black/60 to-transparent backdrop-blur-xl flex flex-col items-center justify-center px-6 pt-20 pb-10 pointer-events-auto md:hidden"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <div className="flex flex-col items-center justify-center w-full gap-8 text-2xl font-medium tracking-widest text-white">
