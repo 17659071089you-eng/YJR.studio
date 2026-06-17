@@ -115,7 +115,7 @@ export function Hero() {
         {/* Invisible Hitbox scaled down by ~30% to fit the actual core visible animation */}
         <div 
           id="hero-colored-area"
-          className="absolute z-20 w-[81%] md:w-[53%] h-[57vh] md:h-[50vh] translate-y-[calc(-10%-35px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
+          className="absolute z-20 w-[81%] md:w-[53%] h-[57vh] md:h-[50vh] translate-y-[calc(-10%-50px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
 
         <motion.video
@@ -125,7 +125,7 @@ export function Hero() {
           muted
           playsInline
           preload="auto"
-          className="w-full md:w-[76%] max-h-[71vh] object-contain mix-blend-screen translate-y-[calc(-10%-35px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
+          className="w-full md:w-[76%] max-h-[71vh] object-contain mix-blend-screen translate-y-[calc(-10%-50px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
           src="https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/%E5%8A%A8%E7%94%BB2.1.mp4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -177,7 +177,7 @@ export function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[5px] md:translate-y-0 pointer-events-none">
+      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[-10px] md:translate-y-0 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled ? -10 : 0 }}
