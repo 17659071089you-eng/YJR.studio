@@ -5,7 +5,7 @@ import { TextPressure } from './TextPressure';
 
 const contacts = [
   { id: 'email', label: 'Email', value: 'youjiarong_2020@qq.com', icon: Mail, type: 'lucide' },
-  { id: 'wechat', label: 'WeChat', value: 'you-jiarong', isQr: true, icon: 'https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/Wechat--Streamline-Bootstrap.svg', type: 'image' },
+  { id: 'wechat', label: 'WeChat', value: 'Jaron_u', isQr: true, icon: 'https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/Wechat--Streamline-Bootstrap.svg', type: 'image' },
   { id: 'redbook', label: 'RedBook', value: 'View profile', link: 'https://xhslink.com/m/8n62TzsEteQ', isLink: true, icon: 'https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/Xiaohongshu--Streamline-Simple-Icons.svg', type: 'image' },
 ];
 
@@ -171,7 +171,7 @@ export function ContactFooter() {
               
               <button 
                 onClick={() => {
-                  handleCopy('wechat', 'you-jiarong');
+                  handleCopy('wechat', 'Jaron_u');
                   setTimeout(() => setIsQrModalOpen(false), 1500);
                 }}
                 className="w-full py-3 bg-white/10 rounded-full font-medium text-white text-sm active:bg-white active:text-black transition-colors"
