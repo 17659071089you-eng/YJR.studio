@@ -99,11 +99,11 @@ export function Navbar() {
         style={{ WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)', maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)' }}
       />
       
-      <div className="fixed top-[calc(max(1rem,env(safe-area-inset-top))+25px)] md:top-[calc(1.5rem+20px)] left-0 right-0 z-[60] flex flex-col items-center pointer-events-none px-4 md:px-0 w-full">
+      <div className="fixed top-[calc(max(1rem,env(safe-area-inset-top))-5px)] md:top-[calc(1.5rem+20px)] left-0 right-0 z-[60] flex flex-col items-center pointer-events-none px-4 md:px-0 w-full">
         {/* Logo at top-left */}
         <motion.div 
           className={cn(
-            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))+1px)] md:top-[calc(0.25rem-60px)] cursor-pointer flex items-start justify-start w-[211px] h-[105px] md:w-[370px] md:h-[185px]",
+            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))-29px)] md:top-[calc(0.25rem-60px)] cursor-pointer flex items-start justify-start w-[211px] h-[105px] md:w-[370px] md:h-[185px]",
             isScrolled ? "pointer-events-none" : "pointer-events-auto"
           )}
           onClick={(e) => handleScrollTo(e as any, 'home')}
@@ -122,7 +122,7 @@ export function Navbar() {
           className={cn(
             'pointer-events-auto transition-all duration-500 flex items-center justify-center', 
             'bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full p-1.5 md:p-2',
-            'fixed right-4 top-[calc(max(1rem,env(safe-area-inset-top))+25px)] md:relative md:right-auto md:top-auto z-50'
+            'fixed right-4 top-[calc(max(1rem,env(safe-area-inset-top))-5px)] md:relative md:right-auto md:top-auto z-50'
           )}
           initial={{ y: -100 }}
           animate={{ y: 0 }}
