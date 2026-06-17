@@ -169,12 +169,12 @@ export function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 pointer-events-none">
+      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[30px] md:translate-y-0 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled ? -10 : 0 }}
           transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="z-20 mt-[32vh] md:mt-[52vh] mb-4 text-white/75 text-lg md:text-2xl font-light tracking-wide flex flex-col md:flex-row items-center text-center pointer-events-auto"
+          className="z-20 mt-[calc(32vh+15px)] md:mt-[52vh] mb-4 text-white/75 text-lg md:text-2xl font-light tracking-wide flex flex-col md:flex-row items-center text-center pointer-events-auto"
         >
           <div className="flex items-center mb-1 md:mb-0">
             A<span 

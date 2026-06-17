@@ -130,7 +130,7 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="md:hidden flex items-center gap-1">
+          <div className="md:hidden flex items-center gap-4">
             <button 
               className="flex items-center justify-center min-w-[35px] min-h-[35px] rounded-full text-white bg-transparent hover:bg-white/10 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -139,14 +139,18 @@ export function Navbar() {
             </button>
             <button
                className={cn(
-                 "relative flex items-center justify-center min-w-[35px] min-h-[35px] rounded-full text-green-500 bg-transparent hover:bg-white/10 transition-colors",
+                 "relative flex items-center justify-center min-w-[35px] min-h-[35px] rounded-full text-white bg-transparent hover:bg-white/10 transition-colors",
                  isMobileMenuOpen && "hidden"
                )}
                onClick={(e) => handleScrollTo(e as any, 'contact')}
             >
-              <span className="relative flex items-center justify-center min-w-2 h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 [animation-duration:3s]"></span>
-                <span className="relative inline-flex rounded-full h-full w-full bg-green-500"></span>
+              <span className="relative flex items-center justify-center min-w-5 h-5 w-5">
+                <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" className="absolute w-5 h-5 animate-ping opacity-75 text-white/50 [animation-duration:3s]">
+                  <path d="M512 64c259.2 0 469.333333 200.576 469.333333 448s-210.133333 448-469.333333 448a484.48 484.48 0 0 1-232.725333-58.88l-116.394667 50.645333a42.666667 42.666667 0 0 1-58.517333-49.002666l29.76-125.013334C76.629333 703.402667 42.666667 611.477333 42.666667 512 42.666667 264.576 252.8 64 512 64z m0 64C287.488 128 106.666667 300.586667 106.666667 512c0 79.573333 25.557333 155.434667 72.554666 219.285333l5.525334 7.317334 18.709333 24.192-26.965333 113.237333 105.984-46.08 27.477333 15.018667C370.858667 878.229333 439.978667 896 512 896c224.512 0 405.333333-172.586667 405.333333-384S736.512 128 512 128z m-157.696 341.333333a42.666667 42.666667 0 1 1 0 85.333334 42.666667 42.666667 0 0 1 0-85.333334z m159.018667 0a42.666667 42.666667 0 1 1 0 85.333334 42.666667 42.666667 0 0 1 0-85.333334z m158.997333 0a42.666667 42.666667 0 1 1 0 85.333334 42.666667 42.666667 0 0 1 0-85.333334z" fill="currentColor"></path>
+                </svg>
+                <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" className="relative z-10 w-5 h-5 text-white">
+                  <path d="M512 64c259.2 0 469.333333 200.576 469.333333 448s-210.133333 448-469.333333 448a484.48 484.48 0 0 1-232.725333-58.88l-116.394667 50.645333a42.666667 42.666667 0 0 1-58.517333-49.002666l29.76-125.013334C76.629333 703.402667 42.666667 611.477333 42.666667 512 42.666667 264.576 252.8 64 512 64z m0 64C287.488 128 106.666667 300.586667 106.666667 512c0 79.573333 25.557333 155.434667 72.554666 219.285333l5.525334 7.317334 18.709333 24.192-26.965333 113.237333 105.984-46.08 27.477333 15.018667C370.858667 878.229333 439.978667 896 512 896c224.512 0 405.333333-172.586667 405.333333-384S736.512 128 512 128z m-157.696 341.333333a42.666667 42.666667 0 1 1 0 85.333334 42.666667 42.666667 0 0 1 0-85.333334z m159.018667 0a42.666667 42.666667 0 1 1 0 85.333334 42.666667 42.666667 0 0 1 0-85.333334z m158.997333 0a42.666667 42.666667 0 1 1 0 85.333334 42.666667 42.666667 0 0 1 0-85.333334z" fill="currentColor"></path>
+                </svg>
               </span>
             </button>
           </div>
@@ -173,17 +177,18 @@ export function Navbar() {
         </motion.div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-[calc(max(1rem,env(safe-area-inset-top))+70px)] right-4 z-[55] min-w-[88px] bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-3xl flex flex-col p-1.5 pointer-events-auto md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[55] bg-black/80 backdrop-blur-xl flex flex-col items-center justify-center px-6 pt-20 pb-10 pointer-events-auto md:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="flex flex-col w-full gap-1 text-sm font-medium tracking-widest text-white">
+            <div className="flex flex-col items-center justify-center w-full gap-8 text-2xl font-medium tracking-widest text-white">
               {['home', 'projects', 'gallery', 'profile', 'contact'].map((id) => {
                 const label = id === 'projects' ? 'Work' : id === 'profile' ? 'About' : id === 'contact' ? 'Say hi' : id;
                 const formattedLabel = label.charAt(0).toUpperCase() + label.slice(1);
@@ -193,8 +198,8 @@ export function Navbar() {
                     href={`#${id}`}
                     onClick={(e) => handleScrollTo(e, id)}
                     className={cn(
-                      "w-full text-center py-2 px-3 flex items-center justify-center rounded-full transition-colors whitespace-nowrap",
-                      activeSection === id ? "bg-white text-black" : "text-white hover:bg-white/10"
+                      "w-full text-center py-2 flex items-center justify-center transition-colors",
+                      activeSection === id ? "text-white" : "text-white/50 hover:text-white/80"
                     )}
                   >
                     {formattedLabel}
