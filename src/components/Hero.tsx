@@ -205,7 +205,7 @@ export function Hero() {
           className="relative z-50 mt-4 md:mt-5 pointer-events-auto"
         >
           <button 
-            className="flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full px-6 py-3 md:px-8 md:py-4 text-xs md:text-sm font-medium uppercase tracking-widest text-white hover:bg-white/20 transition-colors cursor-pointer"
+            className="hidden md:flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full px-6 py-3 md:px-8 md:py-4 text-xs md:text-sm font-medium uppercase tracking-widest text-white hover:bg-white/20 transition-colors cursor-pointer"
             onClick={() => {
               document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
             }}
@@ -214,7 +214,12 @@ export function Hero() {
           </button>
 
           {/* Mobile Downward Arrows Animation */}
-          <div className="md:hidden flex flex-col items-center justify-center mt-[43px] -space-y-4 opacity-70">
+          <div 
+            className="md:hidden flex flex-col items-center justify-center mt-2 -space-y-4 opacity-70 cursor-pointer"
+            onClick={() => {
+              document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
@@ -226,7 +231,7 @@ export function Hero() {
                   delay: i * 0.3,
                 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
                   <path d="m6 9 6 6 6-6"/>
                 </svg>
               </motion.div>
