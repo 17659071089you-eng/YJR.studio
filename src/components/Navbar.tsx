@@ -103,7 +103,7 @@ export function Navbar() {
         {/* Logo at top-left */}
         <motion.div 
           className={cn(
-            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))-29px)] md:top-[calc(0.25rem-60px)] cursor-pointer flex items-start justify-start w-[211px] h-[105px] md:w-[370px] md:h-[185px] scale-80 origin-top-left md:scale-100 md:origin-center",
+            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))-25px)] md:top-[calc(0.25rem-60px)] cursor-pointer flex items-start justify-start w-[211px] h-[105px] md:w-[370px] md:h-[185px] scale-80 origin-top-left md:scale-100 md:origin-center",
             isScrolled ? "pointer-events-none" : "pointer-events-auto"
           )}
           onClick={(e) => handleScrollTo(e as any, 'home')}
