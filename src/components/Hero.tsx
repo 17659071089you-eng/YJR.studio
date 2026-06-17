@@ -12,6 +12,14 @@ export function Hero() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [roleIndex, setRoleIndex] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,8 +145,8 @@ export function Hero() {
               [62, 49, 242],
               [120, 0, 255],
             ]}
-            dotSize={6.5}
-            totalSize={32.5}
+            dotSize={isMobile ? 4.875 : 6.5}
+            totalSize={isMobile ? 24.375 : 32.5}
             showGradient={false}
           />
         )}
@@ -169,7 +177,7 @@ export function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[15px] md:translate-y-0 pointer-events-none">
+      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[5px] md:translate-y-0 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled ? -10 : 0 }}
