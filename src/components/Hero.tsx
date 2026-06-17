@@ -107,7 +107,7 @@ export function Hero() {
         {/* Invisible Hitbox scaled down by ~30% to fit the actual core visible animation */}
         <div 
           id="hero-colored-area"
-          className="absolute z-20 w-[81%] md:w-[53%] h-[57vh] md:h-[50vh] translate-y-[calc(-10%-15px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
+          className="absolute z-20 w-[81%] md:w-[53%] h-[57vh] md:h-[50vh] translate-y-[calc(-10%-35px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
 
         <motion.video
@@ -117,7 +117,7 @@ export function Hero() {
           muted
           playsInline
           preload="auto"
-          className="w-full md:w-[76%] max-h-[71vh] object-contain mix-blend-screen translate-y-[calc(-10%-15px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
+          className="w-full md:w-[76%] max-h-[71vh] object-contain mix-blend-screen translate-y-[calc(-10%-35px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
           src="https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/%E5%8A%A8%E7%94%BB2.1.mp4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -205,7 +205,7 @@ export function Hero() {
           className="relative z-50 mt-4 md:mt-5 pointer-events-auto"
         >
           <button 
-            className="hidden md:flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full px-6 py-3 md:px-8 md:py-4 text-xs md:text-sm font-medium uppercase tracking-widest text-white hover:bg-white/20 transition-colors cursor-pointer"
+            className="flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full px-6 py-3 md:px-8 md:py-4 text-xs md:text-sm font-medium uppercase tracking-widest text-white hover:bg-white/20 transition-colors cursor-pointer"
             onClick={() => {
               document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
             }}
