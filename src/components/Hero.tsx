@@ -107,7 +107,7 @@ export function Hero() {
         {/* Invisible Hitbox scaled down by ~30% to fit the actual core visible animation */}
         <div 
           id="hero-colored-area"
-          className="absolute z-20 w-[85%] md:w-[53%] h-[60vh] md:h-[50vh] translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
+          className="absolute z-20 w-[81%] md:w-[53%] h-[57vh] md:h-[50vh] translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
 
         <motion.video
@@ -117,7 +117,7 @@ export function Hero() {
           muted
           playsInline
           preload="auto"
-          className="w-full md:w-[76%] max-h-[85vh] md:max-h-[71vh] object-contain mix-blend-screen translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.2] md:scale-100"
+          className="w-full md:w-[76%] max-h-[71vh] object-contain mix-blend-screen translate-y-[-10%] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
           src="https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/%E5%8A%A8%E7%94%BB2.1.mp4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -212,6 +212,26 @@ export function Hero() {
           >
             EXPLORE WORKS
           </button>
+
+          {/* Mobile Downward Arrows Animation */}
+          <div className="md:hidden flex flex-col items-center justify-center mt-[43px] -space-y-4 opacity-70">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                animate={{ opacity: [0.2, 1, 0.2] }}
+                transition={{
+                  duration: 2,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  delay: i * 0.3,
+                }}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
 

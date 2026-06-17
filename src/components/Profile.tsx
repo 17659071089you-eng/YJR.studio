@@ -81,105 +81,107 @@ export function Profile() {
   const portraitRotateY = useTransform(smoothX, [-1, 1], [-15, 15]);
 
   return (
-    <section 
-      id="profile" 
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative pt-20 pb-32 md:pt-24 md:pb-32 px-6 md:px-12 -mt-24 md:-mt-48 overflow-hidden min-h-[90vh] flex items-center perspective-1000 z-20"
-    >
-      {/* Background Marquee - Single Line Centered, reduced font size */}
-      <div className="absolute inset-0 flex-col justify-center opacity-[0.07] pointer-events-none z-0 hidden md:flex">
-        <Marquee speed={30} direction="left">
-          <span className="text-[18vw] font-bold whitespace-nowrap px-8 leading-none tracking-tighter text-white">
-            About Me About Me
-          </span>
-        </Marquee>
-      </div>
+    <>
+      <section 
+        id="profile" 
+        ref={sectionRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="relative pt-20 pb-32 md:pt-24 md:pb-32 px-6 md:px-12 -mt-24 md:-mt-48 overflow-hidden min-h-[90vh] flex items-center perspective-1000 z-20"
+      >
+        {/* Background Marquee - Single Line Centered, reduced font size */}
+        <div className="absolute inset-0 flex-col justify-center opacity-[0.07] pointer-events-none z-0 hidden md:flex">
+          <Marquee speed={30} direction="left">
+            <span className="text-[18vw] font-bold whitespace-nowrap px-8 leading-none tracking-tighter text-white">
+              About Me About Me
+            </span>
+          </Marquee>
+        </div>
 
-      {/* Increased max-w to allow cards to be wider */}
-      <div className="max-w-[1440px] mx-auto w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
-          
-          {/* Left: 3D Portrait - Enlarged */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-start perspective-1000 w-full">
-            <motion.div
-              style={{ rotateX: portraitRotateX, rotateY: portraitRotateY, transformStyle: 'preserve-3d' }}
-              className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden group cursor-pointer lg:max-w-[500px]"
-            >
-              <img
-                src="https://wsrv.nl/?url=https%3A%2F%2Fpub-09c21faf928f44ddb7f174a2fc18cfc9.r2.dev%2Fself.jpg&output=webp"
-                alt="Portrait"
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-            </motion.div>
-          </div>
-
-          {/* Right: Timeline Cards - Widened and fixed hover */}
-          <div className="lg:col-span-7 space-y-6 flex flex-col justify-center w-full">
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">EXPERIENCE</h2>
+        {/* Increased max-w to allow cards to be wider */}
+        <div className="max-w-[1440px] mx-auto w-full relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
             
-            {isMobile ? (
-              <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar gap-4 pb-8 -mx-6 px-6 relative w-[100vw] left-1/2 -ml-[50vw]">
-                {experiences.map((exp) => (
-                  <motion.div
-                    key={exp.id}
-                    className="flex-none w-[85vw] max-w-[320px] bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl cursor-pointer group relative overflow-hidden transition-colors duration-300 hover:bg-white/5 snap-center"
-                    whileHover={{ scale: 1.02, y: -4 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    onClick={() => setSelectedExp(exp)}
-                  >
-                    <div className="relative z-10 flex flex-col h-full justify-between">
-                      <div>
-                        <span className="text-white/40 font-mono text-xs tracking-widest uppercase mb-4 block">{exp.year}</span>
-                        <h4 className="text-2xl font-bold text-white mb-2 tracking-tight">{exp.company}</h4>
-                        <p className="text-white/60 text-base mb-6">{exp.role}</p>
-                      </div>
-                      <div className="flex flex-wrap gap-2 mt-auto">
-                        {exp.tags.map(tag => (
-                          <span key={tag} className="px-3 py-1 border border-white/20 rounded-full text-[10px] text-white/80 font-mono uppercase tracking-wider">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <div className="space-y-6">
-                {experiences.map((exp) => (
-                  <motion.div
-                    key={exp.id}
-                    className="bg-[#0a0a0a] border border-white/10 p-8 rounded-2xl cursor-pointer group relative overflow-hidden transition-colors duration-300 hover:bg-white/5"
-                    whileHover={{ scale: 1.02, y: -4 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    onClick={() => setSelectedExp(exp)}
-                  >
-                    <div className="relative z-10 flex flex-col">
-                      <span className="text-white/40 font-mono text-xs tracking-widest uppercase mb-4 block">{exp.year}</span>
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {/* Left: 3D Portrait - Enlarged */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-start perspective-1000 w-full">
+              <motion.div
+                style={{ rotateX: portraitRotateX, rotateY: portraitRotateY, transformStyle: 'preserve-3d' }}
+                className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden group cursor-pointer lg:max-w-[500px]"
+              >
+                <img
+                  src="https://wsrv.nl/?url=https%3A%2F%2Fpub-09c21faf928f44ddb7f174a2fc18cfc9.r2.dev%2Fself.jpg&output=webp"
+                  alt="Portrait"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </motion.div>
+            </div>
+
+            {/* Right: Timeline Cards - Widened and fixed hover */}
+            <div className="lg:col-span-7 space-y-6 flex flex-col justify-center w-full">
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">EXPERIENCE</h2>
+              
+              {isMobile ? (
+                <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar gap-4 pb-8 -mx-6 px-6 relative w-[100vw] left-1/2 -ml-[50vw]">
+                  {experiences.map((exp) => (
+                    <motion.div
+                      key={exp.id}
+                      className="flex-none w-[85vw] max-w-[320px] bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl cursor-pointer group relative overflow-hidden transition-colors duration-300 hover:bg-white/5 snap-center"
+                      whileHover={{ scale: 1.02, y: -4 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      onClick={() => setSelectedExp(exp)}
+                    >
+                      <div className="relative z-10 flex flex-col h-full justify-between">
                         <div>
-                          <h4 className="text-3xl font-bold text-white mb-2 tracking-tight">{exp.company}</h4>
-                          <p className="text-white/60 text-lg">{exp.role}</p>
+                          <span className="text-white/40 font-mono text-xs tracking-widest uppercase mb-4 block">{exp.year}</span>
+                          <h4 className="text-2xl font-bold text-white mb-2 tracking-tight">{exp.company}</h4>
+                          <p className="text-white/60 text-base mb-6">{exp.role}</p>
                         </div>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 mt-auto">
                           {exp.tags.map(tag => (
-                            <span key={tag} className="px-4 py-1.5 border border-white/20 rounded-full text-xs text-white/80 font-mono uppercase tracking-wider">
+                            <span key={tag} className="px-3 py-1 border border-white/20 rounded-full text-[10px] text-white/80 font-mono uppercase tracking-wider">
                               {tag}
                             </span>
                           ))}
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            )}
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {experiences.map((exp) => (
+                    <motion.div
+                      key={exp.id}
+                      className="bg-[#0a0a0a] border border-white/10 p-8 rounded-2xl cursor-pointer group relative overflow-hidden transition-colors duration-300 hover:bg-white/5"
+                      whileHover={{ scale: 1.02, y: -4 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      onClick={() => setSelectedExp(exp)}
+                    >
+                      <div className="relative z-10 flex flex-col">
+                        <span className="text-white/40 font-mono text-xs tracking-widest uppercase mb-4 block">{exp.year}</span>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                          <div>
+                            <h4 className="text-3xl font-bold text-white mb-2 tracking-tight">{exp.company}</h4>
+                            <p className="text-white/60 text-lg">{exp.role}</p>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {exp.tags.map(tag => (
+                              <span key={tag} className="px-4 py-1.5 border border-white/20 rounded-full text-xs text-white/80 font-mono uppercase tracking-wider">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Experience Modal */}
       <AnimatePresence>
@@ -232,6 +234,6 @@ export function Profile() {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </>
   );
 }

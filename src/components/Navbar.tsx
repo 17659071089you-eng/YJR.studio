@@ -1,7 +1,7 @@
 import { motion, AnimatePresence, useScroll } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useRef, useState, useEffect } from 'react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X, Mail } from 'lucide-react';
 
 function MagneticLink({ href, onClick, children, className, isActive }: { href: string, onClick: (e: any) => void, children: React.ReactNode, className?: string, isActive?: boolean }) {
   const ref = useRef<HTMLAnchorElement>(null);
@@ -29,13 +29,13 @@ function MagneticLink({ href, onClick, children, className, isActive }: { href: 
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={cn(
-        "relative group px-3 py-1.5 rounded-full flex items-center transition-colors duration-300",
-        isActive ? "bg-white text-black" : "text-white",
+        "relative group px-4 py-2 md:px-6 md:py-2.5 rounded-full flex items-center transition-colors duration-300",
+        isActive ? "bg-white text-black" : "text-white hover:bg-white/10",
         className
       )}
     >
       <span className="relative z-10 flex items-center gap-1">{children}</span>
-      {!isActive && <span className="absolute left-0 bottom-0 w-full h-[1px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>}
+      {!isActive && <span className="absolute left-4 right-4 bottom-1 h-[2px] rounded-full bg-white/40 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-center duration-300"></span>}
     </motion.a>
   );
 }
@@ -89,51 +89,37 @@ export function Navbar() {
 
   return (
     <>
-      <div className="fixed top-[max(1rem,env(safe-area-inset-top))] md:top-6 left-0 right-0 z-[60] flex flex-col items-center pointer-events-none px-4 md:px-0 w-full">
+      <div className="fixed top-[calc(max(1rem,env(safe-area-inset-top))+25px)] md:top-[calc(1.5rem+20px)] left-0 right-0 z-[60] flex flex-col items-center pointer-events-none px-4 md:px-0 w-full">
+        {/* Logo at top-left */}
+        <motion.div 
+          className={cn(
+            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))+1px)] md:top-[calc(0.25rem-60px)] cursor-pointer flex items-start justify-start w-[211px] h-[105px] md:w-[370px] md:h-[185px]",
+            isScrolled ? "pointer-events-none" : "pointer-events-auto"
+          )}
+          onClick={(e) => handleScrollTo(e as any, 'home')}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled && window.innerWidth >= 768 ? -10 : 0 }}
+          transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <img 
+            src="https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/logo1.png" 
+            alt="Logo" 
+            className="w-full h-full object-contain object-left-top drop-shadow-md" 
+          />
+        </motion.div>
+
         <motion.nav
           className={cn(
-            'pointer-events-auto transition-all duration-500 flex items-center w-full md:w-auto justify-between md:justify-center',
-            'bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full px-4 py-1.5 md:px-6 md:py-2'
+            'pointer-events-auto transition-all duration-500 flex items-center justify-center', 
+            'bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full p-1.5 md:p-2',
+            'fixed right-4 top-[calc(max(1rem,env(safe-area-inset-top))+25px)] md:relative md:right-auto md:top-auto z-50'
           )}
           initial={{ y: -100 }}
           animate={{ y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="flex items-center gap-4 md:gap-8 text-sm md:text-base font-medium tracking-widest text-white">
-            {/* Circular Progress Logo */}
-            <div className="relative flex items-center justify-center w-8 h-8 md:w-10 md:h-10 cursor-pointer" onClick={(e) => handleScrollTo(e as any, 'home')}>
-              <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-                <defs>
-                  <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#ff9500" />
-                    <stop offset="100%" stopColor="#ff5e00" />
-                  </linearGradient>
-                </defs>
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="44"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.15)"
-                  strokeWidth="8"
-                />
-                <motion.circle
-                  cx="50"
-                  cy="50"
-                  r="44"
-                  fill="none"
-                  stroke="url(#blueGradient)"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                  style={{
-                    pathLength: scrollYProgress
-                  }}
-                />
-              </svg>
-              <span className="text-[10px] md:text-xs font-bold tracking-tighter">YJR</span>
-            </div>
-
-            <div className="hidden md:flex items-center gap-8">
+          <div className="flex items-center text-sm md:text-base font-medium tracking-widest text-white">
+            <div className="hidden md:flex items-center gap-1 md:gap-2">
               <MagneticLink href="#home" isActive={activeSection === 'home'} onClick={(e) => handleScrollTo(e, 'home')}>Home</MagneticLink>
               <MagneticLink href="#projects" isActive={activeSection === 'projects'} onClick={(e) => handleScrollTo(e, 'projects')}>Work</MagneticLink>
               <MagneticLink href="#gallery" isActive={activeSection === 'gallery'} onClick={(e) => handleScrollTo(e, 'gallery')}>Gallery</MagneticLink>
@@ -144,21 +130,33 @@ export function Navbar() {
             </div>
           </div>
 
-          <button 
-            className="md:hidden flex items-center justify-center p-2 text-white min-h-[44px] min-w-[44px]"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-1">
+            <button 
+              className="flex items-center justify-center min-w-[35px] min-h-[35px] rounded-full text-white bg-transparent hover:bg-white/10 transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
+            </button>
+            <button
+               className={cn(
+                 "relative flex items-center justify-center min-w-[35px] min-h-[35px] rounded-full text-green-500 bg-transparent hover:bg-white/10 transition-colors",
+                 isMobileMenuOpen && "hidden"
+               )}
+               onClick={(e) => handleScrollTo(e as any, 'contact')}
+            >
+              <span className="relative flex items-center justify-center min-w-2 h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 [animation-duration:3s]"></span>
+                <span className="relative inline-flex rounded-full h-full w-full bg-green-500"></span>
+              </span>
+            </button>
+          </div>
         </motion.nav>
 
         {/* Status Indicator */}
         <motion.div
           className={cn(
-            "fixed md:absolute right-4 md:right-8 top-[max(1.25rem,env(safe-area-inset-top))] md:top-3 pointer-events-auto flex flex-row items-center md:space-x-2.5 bg-transparent md:bg-white/5 md:hover:bg-white/10 transition-colors md:backdrop-blur-md border-transparent md:border md:border-white/10 rounded-full cursor-pointer md:px-4 md:py-2",
-            isScrolled && "md:pointer-events-none",
-            "p-2 md:p-0", // give some hit area on mobile
-             isMobileMenuOpen && "hidden" // hide on mobile when menu opens
+            "hidden md:flex fixed md:absolute right-[80px] md:right-8 top-[calc(max(1.75rem,env(safe-area-inset-top))+25px)] md:top-[calc(0.75rem+10px)] pointer-events-auto flex-row items-center space-x-2.5 bg-transparent md:bg-white/5 hover:bg-white/10 transition-colors backdrop-blur-md border border-transparent md:border-white/10 rounded-full cursor-pointer px-4 py-2",
+            isScrolled && "md:pointer-events-none"
           )}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled && window.innerWidth >= 768 ? -10 : 0 }}
@@ -170,35 +168,39 @@ export function Navbar() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
           </span>
           <span className="text-white/80 text-[10px] md:text-xs font-medium tracking-wide uppercase hidden md:inline-block">
-            Available for Work
+            Available
           </span>
         </motion.div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-[55] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center px-6 pt-20 pb-10 pointer-events-auto md:hidden"
-            onClick={() => setIsMobileMenuOpen(false)}
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-[calc(max(1rem,env(safe-area-inset-top))+70px)] right-4 z-[55] min-w-[88px] bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-3xl flex flex-col p-1.5 pointer-events-auto md:hidden"
           >
-            <div className="flex flex-col items-center justify-center gap-8 text-2xl font-medium tracking-widest w-full">
-              {['home', 'projects', 'gallery', 'profile', 'contact'].map((id) => (
-                <a
-                  key={id}
-                  href={`#${id}`}
-                  onClick={(e) => handleScrollTo(e, id)}
-                  className={cn(
-                    "w-full text-center py-4 flex items-center justify-center uppercase tracking-widest",
-                    activeSection === id ? "text-white" : "text-white/50"
-                  )}
-                >
-                  {id === 'projects' ? 'Work' : id === 'profile' ? 'About' : id === 'contact' ? 'Say hi' : id}
-                </a>
-              ))}
+            <div className="flex flex-col w-full gap-1 text-sm font-medium tracking-widest text-white">
+              {['home', 'projects', 'gallery', 'profile', 'contact'].map((id) => {
+                const label = id === 'projects' ? 'Work' : id === 'profile' ? 'About' : id === 'contact' ? 'Say hi' : id;
+                const formattedLabel = label.charAt(0).toUpperCase() + label.slice(1);
+                return (
+                  <a
+                    key={id}
+                    href={`#${id}`}
+                    onClick={(e) => handleScrollTo(e, id)}
+                    className={cn(
+                      "w-full text-center py-2 px-3 flex items-center justify-center rounded-full transition-colors whitespace-nowrap",
+                      activeSection === id ? "bg-white text-black" : "text-white hover:bg-white/10"
+                    )}
+                  >
+                    {formattedLabel}
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         )}
