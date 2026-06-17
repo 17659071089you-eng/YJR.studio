@@ -103,7 +103,7 @@ export function Navbar() {
         {/* Logo at top-left */}
         <motion.div 
           className={cn(
-            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))+15px)] -translate-y-1/2 md:translate-y-0 md:top-[calc(0.25rem-60px)] cursor-pointer flex items-center md:items-start justify-start w-[211px] h-[105px] md:w-[370px] md:h-[185px] scale-80 origin-left md:scale-100 md:origin-center",
+            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))+17px)] -translate-y-1/2 md:translate-y-0 md:top-[calc(0.25rem-60px)] cursor-pointer flex items-center md:items-start justify-start w-[211px] h-[105px] md:w-[370px] md:h-[185px] scale-80 origin-left md:scale-100 md:origin-center",
             isScrolled ? "pointer-events-none" : "pointer-events-auto"
           )}
           onClick={(e) => handleScrollTo(e as any, 'home')}
@@ -112,7 +112,7 @@ export function Navbar() {
           transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <img 
-            src="https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/logo1.png" 
+            src="https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/logo4.png" 
             alt="Logo" 
             className="w-full h-full object-contain object-left md:object-left-top drop-shadow-md" 
           />
