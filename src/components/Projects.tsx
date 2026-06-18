@@ -10,8 +10,8 @@ const projects = [
     category: 'Cinema4D & Octane Render',
     year: '2026',
     link: '#',
-    image: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/toystory.jpg',
-    detailsImage: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/SW_toystory.jpg',
+    image: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftoystory.jpg&w=800&q=80&output=webp',
+    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2FSW_toystory.jpg&w=1200&q=85&output=webp',
   },
   {
     id: '02',
@@ -19,8 +19,8 @@ const projects = [
     category: 'Cinema4D & 3D VIsuals',
     year: '2025',
     link: '#',
-    image: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/圣诞.jpg',
-    detailsImage: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/SW_%E5%9C%A3%E8%AF%9E.jpg',
+    image: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%E5%9C%A3%E8%AF%9E.jpg&w=800&q=80&output=webp',
+    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2FSW_%25E5%259C%25A3%25E8%25AF%259E.jpg&w=1200&q=85&output=webp',
   },
   {
     id: '03',
@@ -28,8 +28,8 @@ const projects = [
     category: 'AIGC & toB',
     year: '2026',
     link: '#',
-    image: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/量子飞跃计划.jpg',
-    detailsImage: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/SW_%E9%87%8F%E5%AD%90%E9%A3%9E%E8%B7%83-%E6%8B%B7%E8%B4%9D.jpg',
+    image: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%E9%87%8F%E5%AD%90%E9%A3%9E%E8%B7%83%E8%AE%A1%E5%88%92.jpg&w=800&q=80&output=webp',
+    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2FSW_%25E9%2587%258F%25E5%25AD%2590%25E9%25A3%259E%25E8%25B7%2583-%25E6%258B%25B7%25E8%25B4%259D.jpg&w=1200&q=85&output=webp',
   },
   {
     id: '04',
@@ -37,8 +37,8 @@ const projects = [
     category: 'AIGC& Holiday Marketing',
     year: '2026',
     link: '#',
-    image: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/tb1.jpg',
-    detailsImage: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/SW_%E6%98%A5%E8%8A%821.jpg',
+    image: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftb1.jpg&w=800&q=80&output=webp',
+    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2FSW_%25E6%2598%25A5%25E8%258A%25821.jpg&w=1200&q=85&output=webp',
   },
 ];
 
@@ -168,7 +168,7 @@ export function Projects() {
                 src={project.image}
                 alt={project.title}
                 decoding="async"
-                loading="eager"
+                loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
                 style={{
                   opacity: hoveredIndex === index ? 1 : 0,

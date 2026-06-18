@@ -155,7 +155,7 @@ export function Hero() {
 
       {/* Canvas Reveal Effect Background */}
       <div 
-        className="absolute inset-0 w-full h-full z-30 pointer-events-none [&_*]:!pointer-events-none opacity-20 md:opacity-[0.45] mix-blend-screen global-bg-effect"
+        className="absolute inset-0 w-full h-full z-30 pointer-events-none [&_*]:!pointer-events-none opacity-20 md:opacity-20 mix-blend-screen global-bg-effect"
         style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}
       >
         {!isScrolled && (

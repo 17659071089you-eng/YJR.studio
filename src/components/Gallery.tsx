@@ -18,23 +18,23 @@ const optimizedGalleryOrder = [
 ];
 
 const baseGalleryItems = [
-  { id: 1, title: 'Apple TV', category: 'Design', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/apple-tv1.jpg' },
-  { id: 2, title: 'Baseball', category: 'Photography', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/baseball4.jpg' },
-  { id: 3, title: 'Car 5', category: 'Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/car5.jpg' },
-  { id: 4, title: 'Car 10', category: 'Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/car10.jpg' },
-  { id: 5, title: 'Car 6', category: 'Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/car6.jpg' },
-  { id: 6, title: 'IP 1', category: 'Brand', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/ip1.jpg' },
-  { id: 7, title: 'Girl 1', category: 'Character', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/girl2.jpg' },
-  { id: 8, title: 'Robot 1', category: 'Character', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/robot1.jpg' },
-  { id: 9, title: 'TB 1', category: 'Concept', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/tb1.jpg' },
-  { id: 10, title: 'VH 1', category: 'Concept', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/vh1.jpg' },
-  { id: 11, title: 'Christmas', category: 'Event', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/%E5%9C%A3%E8%AF%9E.jpg' },
-  { id: 12, title: 'Quantum Leap', category: 'Poster', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/%E9%87%8F%E5%AD%90%E9%A3%9E%E8%B7%83%E8%AE%A1%E5%88%92.jpg' },
-  { id: 13, title: 'Match', category: 'Sports', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/%E6%AF%94%E8%B5%9B.jpg' },
-  { id: 14, title: 'Toy Story', category: '3D Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/toystory.jpg' },
-  { id: 15, title: 'Outfit', category: 'Character', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/%E6%8D%A2%E8%A3%851.jpg' },
-  { id: 16, title: 'VH 2', category: 'Concept', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/vh2.jpg' },
-  { id: 17, title: 'Poster 1', category: 'Poster', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/baseball2.jpg' },
+  { id: 1, title: 'Apple TV', category: 'Design', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fapple-tv1.jpg&w=800&q=80&output=webp' },
+  { id: 2, title: 'Baseball', category: 'Photography', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fbaseball4.jpg&w=800&q=80&output=webp' },
+  { id: 3, title: 'Car 5', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fcar5.jpg&w=800&q=80&output=webp' },
+  { id: 4, title: 'Car 10', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fcar10.jpg&w=800&q=80&output=webp' },
+  { id: 5, title: 'Car 6', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fcar6.jpg&w=800&q=80&output=webp' },
+  { id: 6, title: 'IP 1', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fip1.jpg&w=800&q=80&output=webp' },
+  { id: 7, title: 'Girl 1', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fgirl2.jpg&w=800&q=80&output=webp' },
+  { id: 8, title: 'Robot 1', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Frobot1.jpg&w=800&q=80&output=webp' },
+  { id: 9, title: 'TB 1', category: 'Concept', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftb1.jpg&w=800&q=80&output=webp' },
+  { id: 10, title: 'VH 1', category: 'Concept', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fvh1.jpg&w=800&q=80&output=webp' },
+  { id: 11, title: 'Christmas', category: 'Event', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%25E5%259C%25A3%25E8%25AF%259E.jpg&w=800&q=80&output=webp' },
+  { id: 12, title: 'Quantum Leap', category: 'Poster', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%25E9%2587%258F%25E5%25AD%2590%25E9%25A3%259E%25E8%25B7%2583%25E8%25AE%25A1%25E5%2588%2592.jpg&w=800&q=80&output=webp' },
+  { id: 13, title: 'Match', category: 'Sports', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%25E6%25AF%2594%25E8%25B5%259B.jpg&w=800&q=80&output=webp' },
+  { id: 14, title: 'Toy Story', category: '3D Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftoystory.jpg&w=800&q=80&output=webp' },
+  { id: 15, title: 'Outfit', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%25E6%258D%25A2%25E8%25A3%25851.jpg&w=800&q=80&output=webp' },
+  { id: 16, title: 'VH 2', category: 'Concept', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fvh2.jpg&w=800&q=80&output=webp' },
+  { id: 17, title: 'Poster 1', category: 'Poster', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fbaseball2.jpg&w=800&q=80&output=webp' },
 ];
 
 const galleryItems = optimizedGalleryOrder.map(id => baseGalleryItems.find(i => i.id === id)!);
@@ -102,25 +102,25 @@ export function Gallery() {
   const shuffledModalItems = useMemo(() => {
     const items: any[] = [
       ...galleryItems,
-      { id: 101, title: 'TB 2', category: 'Concept', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/tb2.jpg' },
-      { id: 102, title: 'Outfit 4', category: 'Character', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/换装2.jpg' },
-      { id: 103, title: 'Baseball 3', category: 'Photography', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/baseball3.jpg' },
-      { id: 104, title: 'Baseball 5', category: 'Photography', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/baseball5.jpg' },
-      { id: 105, title: 'Apple TV 1', category: 'Design', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/apple-tv.jpg' },
-      { id: 106, title: 'Baseball 6', category: 'Photography', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/baseball6.jpg' },
-      { id: 107, title: 'Car 7', category: 'Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/car7.jpg' },
-      { id: 108, title: 'Demon', category: 'Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/demon.jpg' },
-      { id: 109, title: 'Car 8', category: 'Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/car8.jpg' },
-      { id: 110, title: 'Girl 1', category: 'Character', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/girl1.jpg' },
-      { id: 111, title: 'Car 9', category: 'Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/ip4.jpg' },
-      { id: 112, title: 'IP 2', category: 'Brand', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/ip5.jpg' },
-      { id: 113, title: 'IP 3', category: 'Brand', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/ks1.jpg' },
-      { id: 114, title: 'IP 5', category: 'Brand', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/tinny1.jpg' },
-      { id: 115, title: 'IP 4', category: 'Brand', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/baseball人物-KV.jpg' },
-      { id: 117, title: 'Girl 2', category: 'Character', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/夏日kv-拷贝.jpg' },
-      { id: 118, title: 'COVER', category: 'Design', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/tb1.jpg' },
-      { id: 119, title: 'Car 1', category: 'Render', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/car6.jpg' },
-      { id: 120, title: 'Summer KV', category: 'Poster', img: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/夏日kv-拷贝.jpg' },
+      { id: 101, title: 'TB 2', category: 'Concept', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftb2.jpg&w=800&q=80&output=webp' },
+      { id: 102, title: 'Outfit 4', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%E6%8D%A2%E8%A3%852.jpg&w=800&q=80&output=webp' },
+      { id: 103, title: 'Baseball 3', category: 'Photography', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fbaseball3.jpg&w=800&q=80&output=webp' },
+      { id: 104, title: 'Baseball 5', category: 'Photography', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fbaseball5.jpg&w=800&q=80&output=webp' },
+      { id: 105, title: 'Apple TV 1', category: 'Design', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fapple-tv.jpg&w=800&q=80&output=webp' },
+      { id: 106, title: 'Baseball 6', category: 'Photography', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fbaseball6.jpg&w=800&q=80&output=webp' },
+      { id: 107, title: 'Car 7', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fcar7.jpg&w=800&q=80&output=webp' },
+      { id: 108, title: 'Demon', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fdemon.jpg&w=800&q=80&output=webp' },
+      { id: 109, title: 'Car 8', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fcar8.jpg&w=800&q=80&output=webp' },
+      { id: 110, title: 'Girl 1', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fgirl1.jpg&w=800&q=80&output=webp' },
+      { id: 111, title: 'Car 9', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fip4.jpg&w=800&q=80&output=webp' },
+      { id: 112, title: 'IP 2', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fip5.jpg&w=800&q=80&output=webp' },
+      { id: 113, title: 'IP 3', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fks1.jpg&w=800&q=80&output=webp' },
+      { id: 114, title: 'IP 5', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftinny1.jpg&w=800&q=80&output=webp' },
+      { id: 115, title: 'IP 4', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fbaseball%E4%BA%BA%E7%89%A9-KV.jpg&w=800&q=80&output=webp' },
+      { id: 117, title: 'Girl 2', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%E5%A4%8F%E6%97%A5kv-%E6%8B%B7%E8%B4%9D.jpg&w=800&q=80&output=webp' },
+      { id: 118, title: 'COVER', category: 'Design', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftb1.jpg&w=800&q=80&output=webp' },
+      { id: 119, title: 'Car 1', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Fcar6.jpg&w=800&q=80&output=webp' },
+      { id: 120, title: 'Summer KV', category: 'Poster', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%E5%A4%8F%E6%97%A5kv-%E6%8B%B7%E8%B4%9D.jpg&w=800&q=80&output=webp' },
     ];
 
     // We no longer shuffle the items to preserve original waterfall order,
@@ -243,8 +243,8 @@ export function Gallery() {
                         src={item.img} 
                         alt={item.title}
                         decoding="async"
-                        fetchPriority={rowIdx < 2 ? "high" : "auto"}
-                        loading={rowIdx < 2 ? "eager" : "lazy"}
+                        fetchPriority="auto"
+                        loading="lazy"
                         onLoad={(e) => {
                           const img = e.currentTarget;
                           if (img.naturalWidth && img.naturalHeight) {
