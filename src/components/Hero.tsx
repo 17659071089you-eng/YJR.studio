@@ -82,6 +82,26 @@ export function Hero() {
     };
   }, []);
 
+  // Force play videos on mount to avoid autoplay issues
+  useEffect(() => {
+    const playVideo = (video: HTMLVideoElement | null) => {
+      if (video) {
+        video.muted = true; // Ensure it's muted for autoplay policy
+        video.play().catch(e => console.log('Autoplay prevented:', e));
+      }
+    };
+
+    playVideo(bgVideoRef.current);
+    playVideo(heroVideoRef.current);
+
+    const timer = setTimeout(() => {
+      playVideo(bgVideoRef.current);
+      playVideo(heroVideoRef.current);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section id="home" className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Base black background that fades out at the bottom to reveal the wave background */}

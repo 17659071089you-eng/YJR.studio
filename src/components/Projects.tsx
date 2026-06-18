@@ -10,8 +10,8 @@ const projects = [
     category: 'Cinema4D & Octane Render',
     year: '2026',
     link: '#',
-    image: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftoystory.jpg&output=webp',
-    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2FSW_toystory.jpg&output=webp',
+    image: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/toystory.jpg',
+    detailsImage: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/SW_toystory.jpg',
   },
   {
     id: '02',
@@ -19,8 +19,8 @@ const projects = [
     category: 'Cinema4D & 3D VIsuals',
     year: '2025',
     link: '#',
-    image: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%E5%9C%A3%E8%AF%9E.jpg&output=webp',
-    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2FSW_%25E5%259C%25A3%25E8%25AF%259E.jpg&output=webp',
+    image: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/圣诞.jpg',
+    detailsImage: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/SW_%E5%9C%A3%E8%AF%9E.jpg',
   },
   {
     id: '03',
@@ -28,8 +28,8 @@ const projects = [
     category: 'AIGC & toB',
     year: '2026',
     link: '#',
-    image: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%E9%87%8F%E5%AD%90%E9%A3%9E%E8%B7%83%E8%AE%A1%E5%88%92.jpg&output=webp',
-    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2FSW_%25E9%2587%258F%25E5%25AD%2590%25E9%25A3%259E%25E8%25B7%2583-%25E6%258B%25B7%25E8%25B4%259D.jpg&output=webp',
+    image: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/量子飞跃计划.jpg',
+    detailsImage: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/SW_%E9%87%8F%E5%AD%90%E9%A3%9E%E8%B7%83-%E6%8B%B7%E8%B4%9D.jpg',
   },
   {
     id: '04',
@@ -37,8 +37,8 @@ const projects = [
     category: 'AIGC& Holiday Marketing',
     year: '2026',
     link: '#',
-    image: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2Ftb1.jpg&output=webp',
-    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2FSW_%25E6%2598%25A5%25E8%258A%25821.jpg&output=webp',
+    image: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/tb1.jpg',
+    detailsImage: 'https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/SW_%E6%98%A5%E8%8A%821.jpg',
   },
 ];
 
@@ -167,6 +167,8 @@ export function Projects() {
                 key={`preview-${project.id}`}
                 src={project.image}
                 alt={project.title}
+                decoding="async"
+                loading="eager"
                 className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
                 style={{
                   opacity: hoveredIndex === index ? 1 : 0,
@@ -204,7 +206,7 @@ export function Projects() {
                 <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-10 px-0 sm:px-4">
                   {/* Mobile Preview Image */}
                   <div className="block md:hidden w-full aspect-[16/9] rounded-xl overflow-hidden mb-2">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" decoding="async" />
                   </div>
 
                   <div className="flex-1 min-w-0">
@@ -300,7 +302,7 @@ export function Projects() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               style={{ willChange: "transform, opacity" }}
-              className="relative w-full h-full max-w-[1600px] bg-[#0a0a0a] rounded-[2rem] border border-white/10 overflow-hidden flex flex-col shadow-2xl"
+              className="relative w-full h-full md:max-w-[900px] bg-[#0a0a0a] rounded-[2rem] border border-white/10 overflow-hidden flex flex-col shadow-2xl"
             >
               {/* Header */}
               <div className="flex justify-between items-center p-6 md:px-10 border-b border-white/10 shrink-0 bg-[#0a0a0a] z-10">
