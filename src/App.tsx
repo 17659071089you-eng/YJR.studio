@@ -61,16 +61,16 @@ export default function App() {
     };
   }, []);
 
-  // Show a "rotate device" message on mobile landscape
+    // Show a "rotate device" message on mobile landscape
   if (isLandscapeMobile) {
     return (
-      <div className="fixed inset-0 w-full h-full bg-black z-[999999] flex flex-col items-center justify-center p-8 text-center text-white">
+      <div className="fixed inset-0 w-full h-full bg-[#0a0a0a] z-[999999] flex flex-col items-center justify-center p-8 text-center text-white">
         <RotateCcw className="w-12 h-12 mb-6 text-white/50 animate-pulse" />
-        <h2 className="text-xl md:text-2xl font-medium mb-4 tracking-wider uppercase font-['Bebas']">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-2">
           Please Rotate Device
         </h2>
-        <p className="text-white/60 font-light max-w-xs text-sm md:text-base">
-          This experience is optimized for portrait viewing on mobile devices.
+        <p className="text-white/40 text-xs md:text-sm font-mono mt-1 uppercase max-w-xs">
+          This experience is optimized for portrait viewing
         </p>
       </div>
     );

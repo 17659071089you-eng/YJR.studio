@@ -103,7 +103,7 @@ export function Navbar() {
         {/* Logo at top-left */}
         <motion.div 
           className={cn(
-            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))+17px)] -translate-y-1/2 md:translate-y-0 md:top-[calc(0.25rem-60px)] cursor-pointer flex items-center md:items-start justify-start w-[211px] h-[105px] md:w-[370px] md:h-[185px] scale-80 origin-left md:scale-100 md:origin-center",
+            "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))+17px)] -translate-y-1/2 md:translate-y-0 md:top-[calc(0.25rem-44.5px)] cursor-pointer flex items-center md:items-start justify-start w-[211px] h-[105px] md:w-[296px] md:h-[148px] scale-80 origin-left md:scale-100 md:origin-center",
             isScrolled ? "pointer-events-none" : "pointer-events-auto"
           )}
           onClick={(e) => handleScrollTo(e as any, 'home')}
@@ -122,7 +122,7 @@ export function Navbar() {
           className={cn(
             'pointer-events-auto transition-all duration-500 flex items-center justify-center', 
             'bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full p-1.5 md:p-2',
-            'fixed right-4 top-[calc(max(1rem,env(safe-area-inset-top))+15px)] -translate-y-1/2 md:translate-y-0 md:relative md:right-auto md:top-auto z-50 scale-80 origin-right md:scale-100 md:origin-center'
+            'fixed right-4 top-[calc(max(1rem,env(safe-area-inset-top))+15px)] -translate-y-1/2 md:translate-y-0 md:relative md:right-auto md:top-auto z-50 scale-80 origin-right md:scale-[0.8] md:origin-center'
           )}
           initial={{ y: -100 }}
           animate={{ y: 0 }}
@@ -169,7 +169,7 @@ export function Navbar() {
         {/* Status Indicator */}
         <motion.div
           className={cn(
-            "hidden md:flex fixed md:absolute right-[80px] md:right-8 top-[calc(max(1.75rem,env(safe-area-inset-top))+25px)] md:top-[calc(0.75rem+10px)] pointer-events-auto flex-row items-center space-x-2.5 bg-transparent md:bg-white/5 hover:bg-white/10 transition-colors backdrop-blur-md border border-transparent md:border-white/10 rounded-full cursor-pointer px-4 py-2",
+            "hidden md:flex fixed md:absolute right-[80px] md:right-8 top-[calc(max(1.75rem,env(safe-area-inset-top))+25px)] md:top-[calc(0.75rem+2px)] pointer-events-auto flex-row items-center space-x-2.5 bg-transparent md:bg-white/5 hover:bg-white/10 transition-colors backdrop-blur-md border border-transparent md:border-white/10 rounded-full cursor-pointer px-4 py-2",
             isScrolled && "md:pointer-events-none"
           )}
           initial={{ opacity: 0, y: 30 }}
