@@ -135,7 +135,7 @@ export function Hero() {
 
       {/* Canvas Reveal Effect Background */}
       <div 
-        className="absolute inset-0 w-full h-full z-30 pointer-events-none [&_*]:!pointer-events-none opacity-[0.45] mix-blend-screen global-bg-effect"
+        className="absolute inset-0 w-full h-full z-30 pointer-events-none [&_*]:!pointer-events-none opacity-20 md:opacity-[0.45] mix-blend-screen global-bg-effect"
         style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}
       >
         {!isScrolled && (
@@ -177,7 +177,7 @@ export function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[-85px] md:translate-y-0 pointer-events-none">
+      <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[-100px] md:translate-y-0 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled ? -10 : 0 }}

@@ -76,7 +76,8 @@ export function Gallery() {
   const gapSize = isMobile ? 16 : 24; // 16px (gap-4) or 24px (gap-6)
   
   // Custom grouping logic so we don't end up with 1 item taking the entire last row
-  const rowCounts = isMobile ? [2, 2, 2, 2, 2, 2, 2, 3] : [4, 4, 3, 3, 3];
+  // For mobile: The user requested to remove the last 3 rows, so we use 5 rows (10 items) instead of 8
+  const rowCounts = isMobile ? [2, 2, 2, 2, 2] : [4, 4, 3, 3, 3];
   
   const rows = [];
   let currentItemIndex = 0;
@@ -135,6 +136,10 @@ export function Gallery() {
       const j = Math.floor(random() * (i + 1));
       [items[i], items[j]] = [items[j], items[i]];
     }
+
+    // Remove the very last item because it is a duplicate (id 5, car6 is also id 119)
+    // and causes the 'UPCOMING' dashed placeholder grid block to be hidden by perfectly filling the flex row.
+    items.pop();
 
     return items;
   }, []);
