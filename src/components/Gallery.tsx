@@ -123,25 +123,14 @@ export function Gallery() {
       { id: 120, title: 'Summer KV', category: 'Poster', img: 'https://wsrv.nl/?url=https%3A%2F%2Fpub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev%2F%E5%A4%8F%E6%97%A5kv-%E6%8B%B7%E8%B4%9D.jpg&output=webp' },
     ];
 
-    // Seeded random function to ensure the layout remains visually identical across renders/refreshes
-    // Changing the seed randomly shuffles the items completely anew
-    let seed = 88888;
-    const random = () => {
-      seed = (seed * 9301 + 49297) % 233280;
-      return seed / 233280;
-    };
+    // We no longer shuffle the items to preserve original waterfall order,
+    // followed by the extra items that only appear in the modal.
 
-    // Fisher-Yates array shuffle using the seeded random for a stable randomized mosaic layout
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(random() * (i + 1));
-      [items[i], items[j]] = [items[j], items[i]];
-    }
+    // Remove the item duplicate (id 119 => id 5) explicitly instead of popping since shape matters.
+    // Also remove id 120 as it is a duplicate of 117
+    const filteredItems = items.filter(item => item.id !== 119 && item.id !== 120);
 
-    // Remove the very last item because it is a duplicate (id 5, car6 is also id 119)
-    // and causes the 'UPCOMING' dashed placeholder grid block to be hidden by perfectly filling the flex row.
-    items.pop();
-
-    return items;
+    return filteredItems;
   }, []);
 
   useEffect(() => {
