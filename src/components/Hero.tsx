@@ -146,7 +146,7 @@ export function Hero() {
           playsInline
           preload="auto"
           className="w-full md:w-[57%] max-h-[71vh] md:max-h-[53vh] object-contain mix-blend-screen translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
-          src="https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/%E5%8A%A8%E7%94%BB2.1%20(1).mp4"
+          src="https://img.yjr.ink/%E5%8A%A8%E7%94%BB2.1%20(1).mp4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
