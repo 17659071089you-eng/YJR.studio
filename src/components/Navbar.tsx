@@ -112,7 +112,7 @@ export function Navbar() {
           transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <img 
-            src="https://pub-cbcd9711af7a442cbd9648e4bf4cea91.r2.dev/logo4.png" 
+            src="https://img.yjr.ink/logo.png" 
             alt="Logo" 
             className="w-full h-full object-contain object-left md:object-left-top drop-shadow-md" 
           />
