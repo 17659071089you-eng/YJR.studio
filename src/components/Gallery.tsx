@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { TextPressure } from './TextPressure';
 import { galleryMedia, projectMedia } from '../lib/media';
 import { ScrollReveal, createStaggerItem, revealViewport } from './ui/scroll-reveal';
+import { SplitTextReveal } from './ui/split-text-reveal';
 
 // 1. Manually interleaved order so Landscapes (L) and Portraits (P) are beautifully mixed
 // original ids: Portraits: [7, 8, 10, 12, 15, 17], Landscapes/Wide: [1,2,3,4,5,6,9,11,13,14,16]
@@ -184,24 +184,26 @@ export function Gallery() {
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div className="flex flex-col space-y-2 md:space-y-4">
-              <ScrollReveal y={94} duration={1.15} radius="26px">
-                <TextPressure 
-                  text="Gallery" 
-                  highlightWords={['Gallery', 'GALLERY']}
-                  className="tracking-tight text-white text-left"
-                  style={{
-                    fontFamily: 'JosefinSansBold, system-ui',
-                    fontSize: '106px',
-                    fontWeight: 'normal',
-                    fontStyle: 'normal',
-                    textDecorationLine: 'none',
-                    lineHeight: '95px',
-                    textTransform: 'none',
-                    transform: 'scaleY(0.85)',
-                    transformOrigin: 'top'
-                  }}
-                />
-              </ScrollReveal>
+              <SplitTextReveal
+                text="Gallery"
+                className="tracking-tight text-white text-left"
+                style={{
+                  fontFamily: 'JosefinSansBold, system-ui',
+                  fontSize: '106px',
+                  fontWeight: 'normal',
+                  fontStyle: 'normal',
+                  textDecorationLine: 'none',
+                  lineHeight: '95px',
+                  textTransform: 'none',
+                  transform: 'scaleY(0.85)',
+                  transformOrigin: 'top'
+                }}
+                y="108%"
+                blur={4}
+                duration={0.92}
+                stagger={0.038}
+                highlightWords={['Gallery', 'GALLERY']}
+              />
             </div>
             <ScrollReveal
               className="max-w-xs md:max-w-sm w-full md:w-auto self-end"

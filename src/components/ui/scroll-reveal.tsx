@@ -109,14 +109,12 @@ export function ScrollReveal({
     opacity: 0,
     y,
     filter: `blur(${blur}px)`,
-    clipPath: `inset(0 0 100% 0 round ${radius})`,
   } as const;
 
   const visibleState = {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    clipPath: `inset(0 0 0% 0 round ${radius})`,
   } as const;
 
   return (

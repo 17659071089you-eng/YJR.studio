@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { TextPressure } from './TextPressure';
 import { ArrowUpRight, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { projectMedia } from '../lib/media';
 import { ScrollReveal, createStaggerContainer, createStaggerItem, revealViewport } from './ui/scroll-reveal';
+import { SplitTextReveal } from './ui/split-text-reveal';
 
 const projects = [
   {
@@ -113,42 +113,46 @@ export function Projects() {
       <div className="max-w-[1440px] mx-auto relative z-10 w-full">
         <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div className="flex flex-col space-y-2 md:space-y-4">
-            <ScrollReveal y={92} duration={1.15} radius="26px">
-              <TextPressure 
-                text="Selected" 
-                disableHover={true}
-                className="tracking-tight text-white text-left whitespace-nowrap"
-                style={{
-                  fontFamily: 'JosefinSansBold, system-ui',
-                  fontSize: 'min(106px, 21.5vw)',
-                  fontWeight: 'normal',
-                  fontStyle: 'normal',
-                  textDecorationLine: 'none',
-                  lineHeight: '0.9',
-                  textTransform: 'none',
-                  transform: 'scaleY(0.85)',
-                  transformOrigin: 'bottom left'
-                }}
-              />
-            </ScrollReveal>
-            <ScrollReveal y={110} delay={0.08} duration={1.2} radius="26px">
-              <TextPressure 
-                text="Works" 
-                highlightWords={['Works']}
-                className="tracking-tight text-white text-left whitespace-nowrap"
-                style={{
-                  fontFamily: 'JosefinSansBold, system-ui',
-                  fontSize: 'min(106px, 21.5vw)',
-                  fontWeight: 'normal',
-                  fontStyle: 'normal',
-                  textDecorationLine: 'none',
-                  lineHeight: '0.9',
-                  textTransform: 'none',
-                  transform: 'scaleY(0.85)',
-                  transformOrigin: 'top left'
-                }}
-              />
-            </ScrollReveal>
+            <SplitTextReveal
+              text="Selected"
+              className="tracking-tight text-white text-left whitespace-nowrap"
+              style={{
+                fontFamily: 'JosefinSansBold, system-ui',
+                fontSize: 'min(106px, 21.5vw)',
+                fontWeight: 'normal',
+                fontStyle: 'normal',
+                textDecorationLine: 'none',
+                lineHeight: '0.9',
+                textTransform: 'none',
+                transform: 'scaleY(0.85)',
+                transformOrigin: 'bottom left'
+              }}
+              y="108%"
+              blur={4}
+              duration={0.92}
+              stagger={0.038}
+            />
+            <SplitTextReveal
+              text="Works"
+              className="tracking-tight text-white text-left whitespace-nowrap"
+              style={{
+                fontFamily: 'JosefinSansBold, system-ui',
+                fontSize: 'min(106px, 21.5vw)',
+                fontWeight: 'normal',
+                fontStyle: 'normal',
+                textDecorationLine: 'none',
+                lineHeight: '0.9',
+                textTransform: 'none',
+                transform: 'scaleY(0.85)',
+                transformOrigin: 'top left'
+              }}
+              delay={0.08}
+              y="108%"
+              blur={4}
+              duration={0.92}
+              stagger={0.038}
+              highlightWords={['Works']}
+            />
           </div>
           <ScrollReveal
             className="max-w-xs md:max-w-sm w-full md:w-auto"
