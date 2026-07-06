@@ -110,8 +110,10 @@ export default function LightRays({
       await new Promise((resolve) => setTimeout(resolve, 10));
       if (!isMounted || !containerRef.current) return;
 
+      let isMobileViewport = window.innerWidth < 768;
+
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
+        dpr: Math.min(window.devicePixelRatio, isMobileViewport ? 1 : 2),
         alpha: true,
       });
       rendererRef.current = renderer;
@@ -265,7 +267,8 @@ export default function LightRays({
 
       const handleResize = () => {
         if (!containerRef.current || !renderer) return;
-        renderer.dpr = Math.min(window.devicePixelRatio, 2);
+        isMobileViewport = window.innerWidth < 768;
+        renderer.dpr = Math.min(window.devicePixelRatio, isMobileViewport ? 1 : 2);
         const { clientWidth, clientHeight } = containerRef.current;
         renderer.setSize(clientWidth, clientHeight);
         
@@ -279,11 +282,16 @@ export default function LightRays({
         uniforms.rayDir.value = dir;
       };
 
+      let lastRenderTime = 0;
       const update = (t: number) => {
         if (!rendererRef.current || !uniformsRef.current || !meshRef.current) return;
         
         // Pause animation if a modal is open
         if (document.body.style.overflow === 'hidden' || document.body.classList.contains('modal-open')) {
+          rafRef.current = requestAnimationFrame(update);
+          return;
+        }
+        if (isMobileViewport && t - lastRenderTime < 32) {
           rafRef.current = requestAnimationFrame(update);
           return;
         }
@@ -298,6 +306,7 @@ export default function LightRays({
 
         try {
           renderer.render({ scene: mesh });
+          lastRenderTime = t;
           rafRef.current = requestAnimationFrame(update);
         } catch (err) {
           console.warn('WebGL rendering error:', err);

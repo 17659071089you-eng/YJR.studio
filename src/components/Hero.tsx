@@ -138,7 +138,7 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    if (isMobile || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setShowLightRays(false);
       return;
     }
@@ -148,7 +148,7 @@ export function Hero() {
       return;
     }
 
-    const timer = window.setTimeout(() => setShowLightRays(true), 700);
+    const timer = window.setTimeout(() => setShowLightRays(true), isMobile ? 1200 : 700);
     return () => window.clearTimeout(timer);
   }, [isMobile, isVideoPlaying]);
 
@@ -222,22 +222,22 @@ export function Hero() {
       </div>
 
       <div
-        className="absolute inset-0 w-full h-full z-30 pointer-events-none [&_*]:!pointer-events-none opacity-20 md:opacity-20 mix-blend-screen global-bg-effect"
+        className="absolute inset-0 w-full h-full z-30 pointer-events-none [&_*]:!pointer-events-none opacity-[0.12] md:opacity-20 mix-blend-screen global-bg-effect"
         style={{
           maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         }}
       >
-        {!isMobile && !isScrolled && showCanvasReveal && (
+        {!isScrolled && showCanvasReveal && (
           <Suspense fallback={null}>
             <CanvasRevealEffect
-              animationSpeed={3}
+              animationSpeed={isMobile ? 2.1 : 3}
               colors={[
                 [62, 49, 242],
                 [120, 0, 255],
               ]}
-              dotSize={isMobile ? 4.875 : 6.5}
-              totalSize={isMobile ? 24.375 : 32.5}
+              dotSize={isMobile ? 3.5 : 6.5}
+              totalSize={isMobile ? 20 : 32.5}
               showGradient={false}
             />
           </Suspense>
@@ -256,14 +256,14 @@ export function Hero() {
             <LightRays
               raysColor="#3e31f2"
               raysOrigin="top-center"
-              raysSpeed={1}
-              lightSpread={1}
-              rayLength={2}
+              raysSpeed={isMobile ? 0.75 : 1}
+              lightSpread={isMobile ? 0.82 : 1}
+              rayLength={isMobile ? 1.45 : 2}
               pulsating={false}
-              fadeDistance={1}
-              saturation={1}
-              followMouse
-              mouseInfluence={0.1}
+              fadeDistance={isMobile ? 0.78 : 1}
+              saturation={isMobile ? 0.82 : 1}
+              followMouse={!isMobile}
+              mouseInfluence={isMobile ? 0 : 0.1}
               noiseAmount={0}
               distortion={0}
               className="w-full h-full"

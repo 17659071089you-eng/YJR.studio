@@ -51,9 +51,6 @@ const DynamicWaveBackground = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
-    // Scale down resolution slightly for better performance
-    const dpr = window.devicePixelRatio > 1 ? 1.5 : 1; 
 
     // Initialize WebGL
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl') as WebGLRenderingContext;
@@ -112,10 +109,13 @@ const DynamicWaveBackground = () => {
     const timeLocation = gl.getUniformLocation(program, 'u_time');
     const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
 
+    let isMobileViewport = window.innerWidth < 768;
+
     const handleResize = () => {
-      // Lower rendering resolution slightly to ensure butter-smooth 60fps on all devices
-      const width = window.innerWidth / 2;
-      const height = window.innerHeight / 2;
+      isMobileViewport = window.innerWidth < 768;
+      const divisor = isMobileViewport ? 3.2 : 2;
+      const width = Math.max(320, Math.round(window.innerWidth / divisor));
+      const height = Math.max(480, Math.round(window.innerHeight / divisor));
       canvas.width = width;
       canvas.height = height;
       gl.viewport(0, 0, width, height);
@@ -127,17 +127,20 @@ const DynamicWaveBackground = () => {
 
     const startTime = Date.now();
     let animationFrameId: number;
+    let lastRenderTime = 0;
 
-    const render = () => {
+    const render = (timestamp: number) => {
       animationFrameId = requestAnimationFrame(render);
       if (document.body.style.overflow === 'hidden' || document.body.classList.contains('modal-open')) return;
+      if (isMobileViewport && timestamp - lastRenderTime < 32) return;
       
       const currentTime = Date.now() - startTime;
       gl.uniform1f(timeLocation, currentTime);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
+      lastRenderTime = timestamp;
     };
 
-    render();
+    animationFrameId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener('resize', handleResize);
