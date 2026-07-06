@@ -78,7 +78,6 @@ export function SplitTextReveal({
   }, [amount, hasRevealed]);
 
   const words = text.split(' ');
-  const totalChars = words.reduce((sum, word) => sum + word.length, 0);
   let globalCharIndex = 0;
   const Tag = tag as ElementType;
 
@@ -86,7 +85,15 @@ export function SplitTextReveal({
     <Tag
       ref={containerRef}
       className={cn(className)}
-      style={{ textAlign, ...style }}
+      style={{
+        textAlign,
+        display: 'inline-block',
+        paddingTop: '0.16em',
+        paddingBottom: '0.2em',
+        marginTop: '-0.16em',
+        marginBottom: '-0.2em',
+        ...style,
+      }}
       aria-label={text}
     >
       {words.map((word, wordIndex) => {
@@ -95,7 +102,7 @@ export function SplitTextReveal({
         return (
           <span
             key={`${word}-${wordIndex}`}
-            className="inline-flex whitespace-nowrap align-bottom mr-[0.18em] last:mr-0"
+            className="inline-flex whitespace-nowrap align-bottom overflow-hidden pt-[0.16em] pb-[0.2em] -mt-[0.16em] -mb-[0.2em] mr-[0.18em] last:mr-0"
             aria-hidden="true"
           >
             {word.split('').map((char, charIndex) => {
@@ -105,7 +112,7 @@ export function SplitTextReveal({
               return (
                 <span
                   key={`${word}-${char}-${charIndex}`}
-                  className="inline-flex overflow-hidden align-bottom pb-[0.08em] -mb-[0.08em]"
+                  className="inline-flex align-bottom"
                 >
                   <motion.span
                     initial={{
