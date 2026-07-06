@@ -17,6 +17,9 @@ export function Hero() {
   const [isMobile, setIsMobile] = useState(false);
   const [showLightRays, setShowLightRays] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [showCanvasReveal, setShowCanvasReveal] = useState(false);
+  const [videoPoster, setVideoPoster] = useState<string | null>(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -46,18 +49,91 @@ export function Hero() {
     if (!video) return;
 
     video.muted = true;
+    video.defaultMuted = true;
+    video.autoplay = true;
+    video.loop = true;
+    video.controls = false;
+    video.playsInline = true;
     video.preload = 'auto';
-    video.load();
-    const tryPlay = () => video.play().catch(() => {});
-    tryPlay();
-    const timer = window.setTimeout(tryPlay, 500);
+    video.setAttribute('muted', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('loop', '');
+    video.setAttribute('playsinline', 'true');
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('x5-playsinline', 'true');
+    video.setAttribute('x5-video-player-type', 'h5-page');
+    video.setAttribute('x5-video-player-fullscreen', 'false');
 
+    const capturePoster = () => {
+      if (video.readyState < 2 || video.videoWidth === 0 || video.videoHeight === 0) {
+        return;
+      }
+
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const context = canvas.getContext('2d');
+        if (!context) {
+          return;
+        }
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        setVideoPoster(canvas.toDataURL('image/jpeg', 0.72));
+      } catch {
+        // Ignore canvas capture failures and fall back to direct video playback.
+      }
+    };
+
+    const tryPlay = () =>
+      video.play().then(() => {
+        setIsVideoPlaying(true);
+      }).catch(() => {
+        setIsVideoPlaying(false);
+      });
+
+    const handleLoadedData = () => {
+      setIsVideoReady(true);
+      capturePoster();
+      tryPlay();
+    };
+
+    const handlePlaying = () => {
+      setIsVideoReady(true);
+      setIsVideoPlaying(true);
+    };
+
+    const handlePause = () => {
+      if (!video.ended) {
+        setIsVideoPlaying(false);
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        tryPlay();
+      }
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    video.addEventListener('canplay', capturePoster);
+    video.addEventListener('playing', handlePlaying);
+    video.addEventListener('pause', handlePause);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    video.load();
+    tryPlay();
+    const timer = window.setTimeout(tryPlay, 320);
     if (!video.paused) {
       tryPlay();
     }
 
     return () => {
       window.clearTimeout(timer);
+      video.removeEventListener('loadeddata', handleLoadedData);
+      video.removeEventListener('canplay', capturePoster);
+      video.removeEventListener('playing', handlePlaying);
+      video.removeEventListener('pause', handlePause);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 
@@ -67,9 +143,29 @@ export function Hero() {
       return;
     }
 
-    const timer = window.setTimeout(() => setShowLightRays(true), 1200);
+    if (!isVideoPlaying) {
+      setShowLightRays(false);
+      return;
+    }
+
+    const timer = window.setTimeout(() => setShowLightRays(true), 700);
     return () => window.clearTimeout(timer);
-  }, [isMobile]);
+  }, [isMobile, isVideoPlaying]);
+
+  useEffect(() => {
+    if (isScrolled) {
+      setShowCanvasReveal(false);
+      return;
+    }
+
+    if (!isVideoReady) {
+      setShowCanvasReveal(false);
+      return;
+    }
+
+    const timer = window.setTimeout(() => setShowCanvasReveal(true), isMobile ? 520 : 220);
+    return () => window.clearTimeout(timer);
+  }, [isMobile, isScrolled, isVideoReady]);
 
   return (
     <section id="home" className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -88,6 +184,17 @@ export function Hero() {
           WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
         }}
       >
+        {videoPoster && !isVideoPlaying && (
+          <motion.img
+            src={videoPoster}
+            alt=""
+            aria-hidden="true"
+            className="absolute w-full md:w-[57%] max-h-[71vh] md:max-h-[53vh] object-contain mix-blend-screen translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          />
+        )}
         <motion.video
           ref={heroVideoRef}
           autoPlay
@@ -95,12 +202,14 @@ export function Hero() {
           muted
           playsInline
           preload="auto"
+          controls={false}
+          disableRemotePlayback
           disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplayback"
           className="w-full md:w-[57%] max-h-[71vh] md:max-h-[53vh] object-contain mix-blend-screen translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
           src={videoMedia.heroLoop}
-          onLoadedData={() => setIsVideoReady(true)}
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: isVideoReady ? 1 : 0, y: isVideoReady ? 0 : 30 }}
+          animate={{ opacity: isVideoPlaying ? 1 : 0, y: isVideoPlaying ? 0 : 30 }}
           transition={{ duration: 0.45, delay: 0, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
@@ -119,7 +228,7 @@ export function Hero() {
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         }}
       >
-        {!isScrolled && (
+        {!isScrolled && showCanvasReveal && (
           <Suspense fallback={null}>
             <CanvasRevealEffect
               animationSpeed={3}
