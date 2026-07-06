@@ -3,20 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { Projects } from './components/Projects';
-import { Gallery } from './components/Gallery';
-import { Profile } from './components/Profile';
-import { ContactFooter } from './components/ContactFooter';
-import { Loader } from './components/Loader';
-import { ScrollToTop } from './components/ScrollToTop';
-import DynamicWaveBackground from './components/DynamicWaveBackground';
-import { CustomCursor } from './components/CustomCursor';
-import { CanvasRevealEffect } from './components/ui/canvas-reveal-effect';
 import { RotateCcw } from 'lucide-react';
+
+const Projects = lazy(() => import('./components/Projects').then((module) => ({ default: module.Projects })));
+const Gallery = lazy(() => import('./components/Gallery').then((module) => ({ default: module.Gallery })));
+const Profile = lazy(() => import('./components/Profile').then((module) => ({ default: module.Profile })));
+const ContactFooter = lazy(() => import('./components/ContactFooter').then((module) => ({ default: module.ContactFooter })));
+const ScrollToTop = lazy(() => import('./components/ScrollToTop').then((module) => ({ default: module.ScrollToTop })));
+const DynamicWaveBackground = lazy(() => import('./components/DynamicWaveBackground'));
+const CustomCursor = lazy(() => import('./components/CustomCursor').then((module) => ({ default: module.CustomCursor })));
+const CanvasRevealEffect = lazy(() =>
+  import('./components/ui/canvas-reveal-effect').then((module) => ({ default: module.CanvasRevealEffect }))
+);
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,9 +26,13 @@ export default function App() {
 
   useEffect(() => {
     // Attempt to lock screen orientation for mobile devices if supported
-    if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
+    const orientation = window.screen?.orientation as ScreenOrientation & {
+      lock?: (orientation: 'portrait' | 'landscape') => Promise<void>;
+    };
+
+    if (orientation?.lock) {
       try {
-        window.screen.orientation.lock('portrait').catch((err) => {
+        orientation.lock('portrait').catch((err) => {
           console.log('Screen orientation lock failed/not supported:', err);
         });
       } catch (err) {
@@ -78,10 +83,14 @@ export default function App() {
 
   return (
     <div className="bg-black min-h-screen w-full overflow-x-hidden text-white selection:bg-white/30 relative">
-      <CustomCursor />
-      {/* Background for everything except Hero */}
+      <Suspense fallback={null}>
+        <CustomCursor />
+      </Suspense>
+
       <div className="global-bg-effect">
-        <DynamicWaveBackground />
+        <Suspense fallback={null}>
+          <DynamicWaveBackground />
+        </Suspense>
       </div>
       
       {/* Global Pixel Glow Effect for other sections */}
@@ -89,16 +98,18 @@ export default function App() {
         className={`fixed inset-0 w-full h-full z-[16] pointer-events-none mix-blend-screen transition-opacity duration-1000 global-bg-effect ${isScrolled ? 'opacity-20' : 'opacity-0'}`}
       >
         {isScrolled && (
-          <CanvasRevealEffect
-            animationSpeed={3}
-            colors={[
-              [62, 49, 242],
-              [120, 0, 255],
-            ]}
-            dotSize={isMobile ? 4.875 : 6.5}
-            totalSize={isMobile ? 24.375 : 32.5}
-            showGradient={false}
-          />
+          <Suspense fallback={null}>
+            <CanvasRevealEffect
+              animationSpeed={3}
+              colors={[
+                [62, 49, 242],
+                [120, 0, 255],
+              ]}
+              dotSize={isMobile ? 4.875 : 6.5}
+              totalSize={isMobile ? 24.375 : 32.5}
+              showGradient={false}
+            />
+          </Suspense>
         )}
       </div>
 
@@ -107,12 +118,16 @@ export default function App() {
         <Navbar />
         <main>
           <Hero />
-          <Projects />
-          <Gallery />
-          <Profile />
+          <Suspense fallback={null}>
+            <Projects />
+            <Gallery />
+            <Profile />
+          </Suspense>
         </main>
-        <ContactFooter />
-        <ScrollToTop />
+        <Suspense fallback={null}>
+          <ContactFooter />
+          <ScrollToTop />
+        </Suspense>
       </div>
     </div>
   );

@@ -1,30 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowDown, Mail, MessageCircle, Aperture, X } from 'lucide-react';
+import { Mail, X } from 'lucide-react';
 import { TextPressure } from './TextPressure';
+import { contactMedia } from '../lib/media';
 
 const contacts = [
   { id: 'email', label: 'Email', value: 'youjiarong_2020@qq.com', icon: Mail, type: 'lucide' },
-  { id: 'wechat', label: 'WeChat', value: 'Jaron_u', isQr: true, icon: 'https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/Wechat--Streamline-Bootstrap.svg', type: 'image' },
-  { id: 'redbook', label: 'RedBook', value: 'View profile', link: 'https://xhslink.com/m/8n62TzsEteQ', isLink: true, icon: 'https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/Xiaohongshu--Streamline-Simple-Icons.svg', type: 'image' },
+  { id: 'wechat', label: 'WeChat', value: 'Jaron_u', isQr: true, icon: contactMedia.wechatIcon, type: 'image' },
+  { id: 'redbook', label: 'RedBook', value: 'View profile', link: 'https://xhslink.com/m/8n62TzsEteQ', isLink: true, icon: contactMedia.redbookIcon, type: 'image' },
 ];
 
-function ContactCard({ contact, copiedId, handleCopy, setIsQrModalOpen }: { contact: any, copiedId: string | null, handleCopy: (id: string, val: string) => void, setIsQrModalOpen: (val: boolean) => void }) {
+function ContactCard({
+  contact,
+  copiedId,
+  handleCopy,
+  setIsQrModalOpen,
+}: {
+  contact: any;
+  copiedId: string | null;
+  handleCopy: (id: string, val: string) => void;
+  setIsQrModalOpen: (val: boolean) => void;
+}) {
   const Icon = contact.icon;
+
   return (
     <motion.div
       className="bg-[#0a0a0a] border border-white/10 p-3 md:p-8 aspect-square md:aspect-auto md:min-h-[176px] md:h-60 rounded-2xl cursor-pointer group relative overflow-hidden transition-colors duration-300 hover:bg-white/5 flex flex-col items-center justify-center text-center"
       whileHover={{ scale: 1.02, y: -4 }}
-      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
       onClick={() => {
         if (contact.isLink && contact.link) {
           window.open(contact.link, '_blank', 'noopener,noreferrer');
         } else if (contact.isQr) {
-          // Open Modal for QR
           if (window.innerWidth < 768) {
-             setIsQrModalOpen(true);
+            setIsQrModalOpen(true);
           } else {
-             handleCopy(contact.id, contact.value);
+            handleCopy(contact.id, contact.value);
           }
         } else {
           handleCopy(contact.id, contact.value);
@@ -40,29 +51,22 @@ function ContactCard({ contact, copiedId, handleCopy, setIsQrModalOpen }: { cont
       </div>
 
       <div className="hidden md:flex flex-col gap-1.5 relative z-10 w-full">
-        <span className="text-white text-3xl md:text-3xl lg:text-4xl font-extrabold tracking-tight">
-          {contact.label}
-        </span>
+        <span className="text-white text-3xl md:text-3xl lg:text-4xl font-extrabold tracking-tight">{contact.label}</span>
         <span className="text-white/60 text-[10px] md:text-xs lg:text-sm font-light tracking-wide break-all px-2">
           {copiedId === contact.id ? <span className="text-green-400 font-medium">COPIED!</span> : contact.value}
         </span>
       </div>
-      
+
       <div className="flex md:hidden flex-col gap-1 relative z-10 w-full mt-2">
         <span className="text-white/90 text-[10px] font-semibold tracking-wider uppercase">
           {copiedId === contact.id ? <span className="text-green-400">COPIED!</span> : contact.label}
         </span>
       </div>
 
-      {/* QR Code for WeChat - Desktop Hover Only */}
       {contact.isQr && (
         <div className="hidden md:flex absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 bg-black/80 backdrop-blur-sm z-20 pointer-events-none">
           <div className="bg-white p-2 rounded-xl shadow-2xl transform scale-90 group-hover:scale-100 transition-transform duration-500">
-            <img 
-              src="https://wsrv.nl/?url=https%3A%2F%2Fpub-09c21faf928f44ddb7f174a2fc18cfc9.r2.dev%2Fwechat.png&output=webp" 
-              alt="WeChat QR Code" 
-              className="w-28 h-28 object-contain" 
-            />
+            <img src={contactMedia.wechatQr} alt="WeChat QR Code" className="w-28 h-28 object-contain" />
           </div>
         </div>
       )}
@@ -73,13 +77,6 @@ function ContactCard({ contact, copiedId, handleCopy, setIsQrModalOpen }: { cont
 export function ContactFooter() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleCopy = (id: string, value: string) => {
     navigator.clipboard.writeText(value);
@@ -91,8 +88,8 @@ export function ContactFooter() {
     <footer id="contact" className="relative pt-12 md:pt-24 pb-32 -mt-32 md:-mt-32 px-6 md:px-12 overflow-hidden z-20 flex justify-center">
       <div className="max-w-[1440px] mx-auto w-full">
         <div className="mb-10 md:mb-24 flex flex-col items-center justify-center w-full space-y-4">
-          <TextPressure 
-            text="THANK YOU." 
+          <TextPressure
+            text="THANK YOU."
             highlightWords={['YOU.']}
             highlightGradient="linear-gradient(45deg, #ec4899, #f97316)"
             className="tracking-tight text-white flex justify-center text-center flex-nowrap whitespace-nowrap"
@@ -105,7 +102,7 @@ export function ContactFooter() {
               lineHeight: '0.9',
               textTransform: 'none',
               transform: 'scaleY(0.85)',
-              transformOrigin: 'top'
+              transformOrigin: 'top',
             }}
           />
           <div className="max-w-xl text-center text-white/80 text-base md:text-lg font-light tracking-wide leading-relaxed">
@@ -116,25 +113,23 @@ export function ContactFooter() {
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8 mb-32 perspective-1000 w-full max-w-sm md:max-w-none mx-auto">
           {contacts.map((contact) => (
-            <ContactCard 
-              key={contact.id} 
-              contact={contact} 
-              copiedId={copiedId} 
-              handleCopy={handleCopy} 
+            <ContactCard
+              key={contact.id}
+              contact={contact}
+              copiedId={copiedId}
+              handleCopy={handleCopy}
               setIsQrModalOpen={setIsQrModalOpen}
             />
           ))}
         </div>
 
-        {/* Footer Signature */}
         <div className="border-t border-white/10 pt-12 flex items-center justify-center">
           <p className="text-white/40 text-xs md:text-sm font-mono text-center mb-4 md:mb-0">
-            © {new Date().getFullYear()} YJR.PORTFOLIO. ALL RIGHTS RESERVED.
+            {'\u00A9'} {new Date().getFullYear()} YJR.PORTFOLIO. ALL RIGHTS RESERVED.
           </p>
         </div>
       </div>
-      
-      {/* Mobile QR Modal */}
+
       <AnimatePresence>
         {isQrModalOpen && (
           <motion.div
@@ -151,25 +146,22 @@ export function ContactFooter() {
               className="bg-[#111] border border-white/10 rounded-3xl p-6 shadow-2xl flex flex-col items-center max-w-sm w-full relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
-                onClick={() => setIsQrModalOpen(false)}
-                className="absolute top-4 right-4 text-white/50 hover:text-white"
-              >
+              <button onClick={() => setIsQrModalOpen(false)} className="absolute top-4 right-4 text-white/50 hover:text-white">
                 <X size={20} />
               </button>
-              
+
               <div className="bg-white p-3 rounded-xl mb-4 mt-6">
-                <img 
-                  src="https://wsrv.nl/?url=https%3A%2F%2Fpub-09c21faf928f44ddb7f174a2fc18cfc9.r2.dev%2Fwechat.png&output=webp" 
-                  alt="WeChat QR Code" 
-                  className="w-48 h-48 object-contain" 
-                />
+                <img src={contactMedia.wechatQr} alt="WeChat QR Code" className="w-48 h-48 object-contain" />
               </div>
-              
+
               <h3 className="text-xl font-bold text-white mb-1">WeChat</h3>
-              <p className="text-white/60 text-sm mb-6 text-center">长按识别二维码或保存图片<br/>(Long press to recognize or save)</p>
-              
-              <button 
+              <p className="text-white/60 text-sm mb-6 text-center">
+                {'\u957F\u6309\u8BC6\u522B\u4E8C\u7EF4\u7801\u6216\u4FDD\u5B58\u56FE\u7247'}
+                <br />
+                (Long press to recognize or save)
+              </p>
+
+              <button
                 onClick={() => {
                   handleCopy('wechat', 'Jaron_u');
                   setTimeout(() => setIsQrModalOpen(false), 1500);

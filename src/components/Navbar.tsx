@@ -1,7 +1,8 @@
 import { motion, AnimatePresence, useScroll } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useRef, useState, useEffect } from 'react';
-import { ArrowUpRight, Menu, X, Mail } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { brandingMedia } from '../lib/media';
 
 function MagneticLink({ href, onClick, children, className, isActive }: { href: string, onClick: (e: any) => void, children: React.ReactNode, className?: string, isActive?: boolean }) {
   const ref = useRef<HTMLAnchorElement>(null);
@@ -112,7 +113,7 @@ export function Navbar() {
           transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <img 
-            src="https://img.yjr.ink/logo.png" 
+            src={brandingMedia.logo}
             alt="Logo" 
             className="w-full h-full object-contain object-left md:object-left-top drop-shadow-md" 
           />

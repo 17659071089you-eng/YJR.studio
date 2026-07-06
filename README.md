@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# YJR.studio
 
-# Run and deploy your AI Studio app
+Personal portfolio site built with Vite, React, Tailwind CSS, and Motion.
 
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/00118ed2-a6fb-4066-99d9-9da000321352
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
+## Local development
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Start the dev server:
    `npm run dev`
+
+## Production build
+
+1. Build:
+   `npm run build`
+2. Preview locally:
+   `npm run preview`
+
+## Deploy to Vercel
+
+1. Import this GitHub repository into Vercel.
+2. Framework preset: `Vite`
+3. Build command: `npm run build`
+4. Output directory: `dist`
+5. Add your domains:
+   - `www.yjr.ink`
+   - `yjr.ink`
+
+This repo self-hosts its fonts, images, icons, and videos under `/media`, so deployment no longer depends on blocked third-party asset hosts.

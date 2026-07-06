@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TextPressure } from './TextPressure';
+import { galleryMedia, projectMedia } from '../lib/media';
 
 // 1. Manually interleaved order so Landscapes (L) and Portraits (P) are beautifully mixed
 // original ids: Portraits: [7, 8, 10, 12, 15, 17], Landscapes/Wide: [1,2,3,4,5,6,9,11,13,14,16]
@@ -18,23 +19,23 @@ const optimizedGalleryOrder = [
 ];
 
 const baseGalleryItems = [
-  { id: 1, title: 'Apple TV', category: 'Design', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fapple-tv1.jpg&w=800&q=80&output=webp' },
-  { id: 2, title: 'Baseball', category: 'Photography', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fbaseball4.jpg&w=800&q=80&output=webp' },
-  { id: 3, title: 'Car 5', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fcar5.jpg&w=800&q=80&output=webp' },
-  { id: 4, title: 'Car 10', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fcar10.jpg&w=800&q=80&output=webp' },
-  { id: 5, title: 'Car 6', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fcar6.jpg&w=800&q=80&output=webp' },
-  { id: 6, title: 'IP 1', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fip1.jpg&w=800&q=80&output=webp' },
-  { id: 7, title: 'Girl 1', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fgirl2.jpg&w=800&q=80&output=webp' },
-  { id: 8, title: 'Robot 1', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Frobot1.jpg&w=800&q=80&output=webp' },
-  { id: 9, title: 'TB 1', category: 'Concept', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Ftb1.jpg&w=800&q=80&output=webp' },
-  { id: 10, title: 'VH 1', category: 'Concept', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fvh1.jpg&w=800&q=80&output=webp' },
-  { id: 11, title: 'Christmas', category: 'Event', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%25E5%259C%25A3%25E8%25AF%259E.jpg&w=800&q=80&output=webp' },
-  { id: 12, title: 'Quantum Leap', category: 'Poster', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%25E9%2587%258F%25E5%25AD%2590%25E9%25A3%259E%25E8%25B7%2583%25E8%25AE%25A1%25E5%2588%2592.jpg&w=800&q=80&output=webp' },
-  { id: 13, title: 'Match', category: 'Sports', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%25E6%25AF%2594%25E8%25B5%259B.jpg&w=800&q=80&output=webp' },
-  { id: 14, title: 'Toy Story', category: '3D Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Ftoystory.jpg&w=800&q=80&output=webp' },
-  { id: 15, title: 'Outfit', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%25E6%258D%25A2%25E8%25A3%25851.jpg&w=800&q=80&output=webp' },
-  { id: 16, title: 'VH 2', category: 'Concept', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fvh2.jpg&w=800&q=80&output=webp' },
-  { id: 17, title: 'Poster 1', category: 'Poster', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fbaseball2.jpg&w=800&q=80&output=webp' },
+  { id: 1, title: 'Apple TV', category: 'Design', img: galleryMedia.appleTv1 },
+  { id: 2, title: 'Baseball', category: 'Photography', img: galleryMedia.baseball4 },
+  { id: 3, title: 'Car 5', category: 'Render', img: galleryMedia.car5 },
+  { id: 4, title: 'Car 10', category: 'Render', img: galleryMedia.car10 },
+  { id: 5, title: 'Car 6', category: 'Render', img: galleryMedia.car6 },
+  { id: 6, title: 'IP 1', category: 'Brand', img: galleryMedia.ip1 },
+  { id: 7, title: 'Girl 1', category: 'Character', img: galleryMedia.girl2 },
+  { id: 8, title: 'Robot 1', category: 'Character', img: galleryMedia.robot1 },
+  { id: 9, title: 'TB 1', category: 'Concept', img: projectMedia.tbCampaign },
+  { id: 10, title: 'VH 1', category: 'Concept', img: galleryMedia.vh1 },
+  { id: 11, title: 'Christmas', category: 'Event', img: projectMedia.christmas },
+  { id: 12, title: 'Quantum Leap', category: 'Poster', img: projectMedia.quantumLeap },
+  { id: 13, title: 'Match', category: 'Sports', img: galleryMedia.match },
+  { id: 14, title: 'Toy Story', category: '3D Render', img: projectMedia.toyStory },
+  { id: 15, title: 'Outfit', category: 'Character', img: galleryMedia.outfit1 },
+  { id: 16, title: 'VH 2', category: 'Concept', img: galleryMedia.vh2 },
+  { id: 17, title: 'Poster 1', category: 'Poster', img: galleryMedia.baseball2 },
 ];
 
 const galleryItems = optimizedGalleryOrder.map(id => baseGalleryItems.find(i => i.id === id)!);
@@ -102,25 +103,25 @@ export function Gallery() {
   const shuffledModalItems = useMemo(() => {
     const items: any[] = [
       ...galleryItems,
-      { id: 101, title: 'TB 2', category: 'Concept', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Ftb2.jpg&w=800&q=80&output=webp' },
-      { id: 102, title: 'Outfit 4', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%E6%8D%A2%E8%A3%852.jpg&w=800&q=80&output=webp' },
-      { id: 103, title: 'Baseball 3', category: 'Photography', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fbaseball3.jpg&w=800&q=80&output=webp' },
-      { id: 104, title: 'Baseball 5', category: 'Photography', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fbaseball5.jpg&w=800&q=80&output=webp' },
-      { id: 105, title: 'Apple TV 1', category: 'Design', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fapple-tv.jpg&w=800&q=80&output=webp' },
-      { id: 106, title: 'Baseball 6', category: 'Photography', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fbaseball6.jpg&w=800&q=80&output=webp' },
-      { id: 107, title: 'Car 7', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fcar7.jpg&w=800&q=80&output=webp' },
-      { id: 108, title: 'Demon', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fdemon.jpg&w=800&q=80&output=webp' },
-      { id: 109, title: 'Car 8', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fcar8.jpg&w=800&q=80&output=webp' },
-      { id: 110, title: 'Girl 1', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fgirl1.jpg&w=800&q=80&output=webp' },
-      { id: 111, title: 'Car 9', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fip4.jpg&w=800&q=80&output=webp' },
-      { id: 112, title: 'IP 2', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fip5.jpg&w=800&q=80&output=webp' },
-      { id: 113, title: 'IP 3', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fks1.jpg&w=800&q=80&output=webp' },
-      { id: 114, title: 'IP 5', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Ftinny1.jpg&w=800&q=80&output=webp' },
-      { id: 115, title: 'IP 4', category: 'Brand', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fbaseball%E4%BA%BA%E7%89%A9-KV.jpg&w=800&q=80&output=webp' },
-      { id: 117, title: 'Girl 2', category: 'Character', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%E5%A4%8F%E6%97%A5kv-%E6%8B%B7%E8%B4%9D.jpg&w=800&q=80&output=webp' },
-      { id: 118, title: 'COVER', category: 'Design', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Ftb1.jpg&w=800&q=80&output=webp' },
-      { id: 119, title: 'Car 1', category: 'Render', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Fcar6.jpg&w=800&q=80&output=webp' },
-      { id: 120, title: 'Summer KV', category: 'Poster', img: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%E5%A4%8F%E6%97%A5kv-%E6%8B%B7%E8%B4%9D.jpg&w=800&q=80&output=webp' },
+      { id: 101, title: 'TB 2', category: 'Concept', img: galleryMedia.tb2 },
+      { id: 102, title: 'Outfit 4', category: 'Character', img: galleryMedia.outfit2 },
+      { id: 103, title: 'Baseball 3', category: 'Photography', img: galleryMedia.baseball3 },
+      { id: 104, title: 'Baseball 5', category: 'Photography', img: galleryMedia.baseball5 },
+      { id: 105, title: 'Apple TV 1', category: 'Design', img: galleryMedia.appleTv },
+      { id: 106, title: 'Baseball 6', category: 'Photography', img: galleryMedia.baseball6 },
+      { id: 107, title: 'Car 7', category: 'Render', img: galleryMedia.car7 },
+      { id: 108, title: 'Demon', category: 'Render', img: galleryMedia.demon },
+      { id: 109, title: 'Car 8', category: 'Render', img: galleryMedia.car8 },
+      { id: 110, title: 'Girl 1', category: 'Character', img: galleryMedia.girl1 },
+      { id: 111, title: 'Car 9', category: 'Render', img: galleryMedia.ip4 },
+      { id: 112, title: 'IP 2', category: 'Brand', img: galleryMedia.ip5 },
+      { id: 113, title: 'IP 3', category: 'Brand', img: galleryMedia.ks1 },
+      { id: 114, title: 'IP 5', category: 'Brand', img: galleryMedia.tinny1 },
+      { id: 115, title: 'IP 4', category: 'Brand', img: galleryMedia.baseballCharacterKv },
+      { id: 117, title: 'Girl 2', category: 'Character', img: galleryMedia.summerKv },
+      { id: 118, title: 'COVER', category: 'Design', img: projectMedia.tbCampaign },
+      { id: 119, title: 'Car 1', category: 'Render', img: galleryMedia.car6 },
+      { id: 120, title: 'Summer KV', category: 'Poster', img: galleryMedia.summerKv },
     ];
 
     // We no longer shuffle the items to preserve original waterfall order,
@@ -132,16 +133,6 @@ export function Gallery() {
 
     return filteredItems;
   }, []);
-
-  useEffect(() => {
-    // Preload modal images so they appear instantly when the modal is opened
-    shuffledModalItems.forEach((item) => {
-      if (item.img) {
-        const img = new Image();
-        img.src = item.img;
-      }
-    });
-  }, [shuffledModalItems]);
 
   // Use a stable fallback aspect ratio for the structural math grouping.
   const stableItemARs = shuffledModalItems.map(item => dynamicARs[item.id] || getFallbackAR(item.id));

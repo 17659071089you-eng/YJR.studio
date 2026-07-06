@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { TextPressure } from './TextPressure';
 import { ArrowUpRight, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
+import { projectMedia } from '../lib/media';
 
 const projects = [
   {
@@ -10,8 +11,8 @@ const projects = [
     category: 'Cinema4D & Octane Render',
     year: '2026',
     link: '#',
-    image: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Ftoystory.jpg&w=800&q=80&output=webp',
-    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2FSW_toystory.jpg&w=1200&q=85&output=webp',
+    image: projectMedia.toyStory,
+    detailsImage: projectMedia.toyStoryDetail,
   },
   {
     id: '02',
@@ -19,8 +20,8 @@ const projects = [
     category: 'Cinema4D & 3D VIsuals',
     year: '2025',
     link: '#',
-    image: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%E5%9C%A3%E8%AF%9E.jpg&w=800&q=80&output=webp',
-    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2FSW_%25E5%259C%25A3%25E8%25AF%259E.jpg&w=1200&q=85&output=webp',
+    image: projectMedia.christmas,
+    detailsImage: projectMedia.christmasDetail,
   },
   {
     id: '03',
@@ -28,8 +29,8 @@ const projects = [
     category: 'AIGC & toB',
     year: '2026',
     link: '#',
-    image: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2F%E9%87%8F%E5%AD%90%E9%A3%9E%E8%B7%83%E8%AE%A1%E5%88%92.jpg&w=800&q=80&output=webp',
-    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2FSW_%25E9%2587%258F%25E5%25AD%2590%25E9%25A3%259E%25E8%25B7%2583-%25E6%258B%25B7%25E8%25B4%259D.jpg&w=1200&q=85&output=webp',
+    image: projectMedia.quantumLeap,
+    detailsImage: projectMedia.quantumLeapDetail,
   },
   {
     id: '04',
@@ -37,8 +38,8 @@ const projects = [
     category: 'AIGC& Holiday Marketing',
     year: '2026',
     link: '#',
-    image: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2Ftb1.jpg&w=800&q=80&output=webp',
-    detailsImage: 'https://wsrv.nl/?url=https%3A%2F%2Fimg.yjr.ink%2FSW_%25E6%2598%25A5%25E8%258A%25821.jpg&w=1200&q=85&output=webp',
+    image: projectMedia.tbCampaign,
+    detailsImage: projectMedia.springFestivalDetail,
   },
 ];
 

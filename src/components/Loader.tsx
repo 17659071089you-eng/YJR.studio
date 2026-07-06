@@ -1,12 +1,13 @@
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
+import { videoMedia } from '../lib/media';
 
 export function Loader({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
-    // Fallback timer in case the video fails to load or play (increased to 60s to ensure long videos aren't cut off)
+    // Fail closed quickly if the intro media cannot play.
     const timer = setTimeout(() => {
       onComplete();
-    }, 60000);
+    }, 15000);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -23,7 +24,8 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
         onEnded={onComplete}
         onError={onComplete}
         className="w-full h-full object-cover"
-        src="https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/%E5%8A%A8%E7%94%BB1.1.mp4"
+        preload="metadata"
+        src={videoMedia.loaderIntro}
       />
     </motion.div>
   );

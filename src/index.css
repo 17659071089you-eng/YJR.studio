@@ -1,45 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Press+Start+2P&display=swap');
 @import "tailwindcss";
 
 @font-face {
   font-family: 'Bebas';
-  src: url('https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/Bebas-Regular.ttf') format('truetype');
+  src: url('/media/fonts/Bebas-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Rushfordclean';
-  src: url('https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/Rushfordclean-rgz89.otf') format('opentype');
+  src: url('/media/fonts/Rushfordclean-rgz89.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'BitcountGridDouble';
-  src: url('https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/BitcountGridDouble-VariableFont_CRSV%2CELSH%2CELXP%2Cslnt%2Cwght.ttf') format('truetype');
+  src: url('/media/fonts/BitcountGridDouble-VariableFont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'HindBold';
-  src: url('https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/Hind-Bold.ttf') format('truetype');
+  src: url('/media/fonts/Hind-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'JosefinSansBold';
-  src: url('https://raw.githubusercontent.com/17659071089you-eng/portfolio/main/JosefinSans-Bold.ttf') format('truetype');
+  src: url('/media/fonts/JosefinSans-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-flex: "Roboto Flex", sans-serif;
+  --font-sans: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", monospace;
+  --font-flex: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
 }
 
 @layer base {

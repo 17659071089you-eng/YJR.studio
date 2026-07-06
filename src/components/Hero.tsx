@@ -1,14 +1,16 @@
 import { motion, AnimatePresence } from 'motion/react';
 import Marquee from 'react-fast-marquee';
-import { useEffect, useRef, useState } from 'react';
-import { ArrowDown } from 'lucide-react';
-import LightRays from './LightRays';
-import { CanvasRevealEffect } from './ui/canvas-reveal-effect';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { videoMedia } from '../lib/media';
+
+const LightRays = lazy(() => import('./LightRays'));
+const CanvasRevealEffect = lazy(() =>
+  import('./ui/canvas-reveal-effect').then((module) => ({ default: module.CanvasRevealEffect }))
+);
 
 const ROLES = ['Creative', 'Designer', 'Developer', 'Artist', 'Thinker', 'Creator'];
 
 export function Hero() {
-  const bgVideoRef = useRef<HTMLVideoElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [roleIndex, setRoleIndex] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,103 +39,75 @@ export function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // Highly precise seamless looping using requestAnimationFrame
   useEffect(() => {
-    const setupSeamlessLoop = (video: HTMLVideoElement | null, threshold = 0.04) => {
-      if (!video) return () => {};
-      let frameId: number;
+    const video = heroVideoRef.current;
+    if (!video) return;
 
-      const checkLoop = () => {
-        if (video.duration && video.currentTime >= video.duration - threshold) {
-          video.currentTime = 0;
-          video.play().catch(() => {});
-        }
-        frameId = requestAnimationFrame(checkLoop);
-      };
+    let frameId = 0;
 
-      const onPlay = () => {
-        frameId = requestAnimationFrame(checkLoop);
-      };
-
-      const onPause = () => {
-        cancelAnimationFrame(frameId);
-      };
-
-      video.addEventListener('play', onPlay);
-      video.addEventListener('pause', onPause);
-
-      if (!video.paused) {
-        frameId = requestAnimationFrame(checkLoop);
+    const checkLoop = () => {
+      if (video.duration && video.currentTime >= video.duration - 2) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
       }
-
-      return () => {
-        video.removeEventListener('play', onPlay);
-        video.removeEventListener('pause', onPause);
-        cancelAnimationFrame(frameId);
-      };
+      frameId = requestAnimationFrame(checkLoop);
     };
 
-    const cleanupBg = setupSeamlessLoop(bgVideoRef.current);
-    const cleanupHero = setupSeamlessLoop(heroVideoRef.current, 2.0); // Reset 2 seconds early to avoid stutter
+    const onPlay = () => {
+      frameId = requestAnimationFrame(checkLoop);
+    };
+
+    const onPause = () => {
+      cancelAnimationFrame(frameId);
+    };
+
+    video.addEventListener('play', onPlay);
+    video.addEventListener('pause', onPause);
+
+    video.muted = true;
+    video.play().catch(() => {});
+    const timer = setTimeout(() => video.play().catch(() => {}), 500);
+
+    if (!video.paused) {
+      frameId = requestAnimationFrame(checkLoop);
+    }
 
     return () => {
-      cleanupBg();
-      cleanupHero();
+      clearTimeout(timer);
+      video.removeEventListener('play', onPlay);
+      video.removeEventListener('pause', onPause);
+      cancelAnimationFrame(frameId);
     };
-  }, []);
-
-  // Force play videos on mount to avoid autoplay issues
-  useEffect(() => {
-    const playVideo = (video: HTMLVideoElement | null) => {
-      if (video) {
-        video.muted = true; // Ensure it's muted for autoplay policy
-        video.play().catch(e => console.log('Autoplay prevented:', e));
-      }
-    };
-
-    playVideo(bgVideoRef.current);
-    playVideo(heroVideoRef.current);
-
-    const timer = setTimeout(() => {
-      playVideo(bgVideoRef.current);
-      playVideo(heroVideoRef.current);
-    }, 500);
-
-    return () => clearTimeout(timer);
   }, []);
 
   return (
     <section id="home" className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Base black background that fades out at the bottom to reveal the wave background */}
-      <div 
+      <div
         className="absolute inset-0 w-full h-full z-0 bg-black"
-        style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}
-      ></div>
+        style={{
+          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+        }}
+      />
 
-      {/* Video Background */}
-      <div 
-        className="absolute inset-0 w-full h-full z-0"
-        style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}
-      >
-        <video
-          ref={bgVideoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="w-full h-full object-cover opacity-80"
-          src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
-        />
-      </div>
+      <div
+        className="absolute inset-0 w-full h-full z-0 opacity-80"
+        style={{
+          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+          background:
+            'radial-gradient(circle at 50% 35%, rgba(62,49,242,0.35), transparent 26%), radial-gradient(circle at 50% 55%, rgba(120,0,255,0.22), transparent 30%), linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.82) 45%, rgba(0,0,0,1) 100%)',
+        }}
+      />
 
-      {/* Center Looping Video (z-10, under dynamic effects) */}
-      <div 
+      <div
         className="absolute inset-0 w-full h-full z-10 flex items-center justify-center pointer-events-none"
-        style={{ maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)' }}
+        style={{
+          maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
+        }}
       >
-        {/* Invisible Hitbox scaled down by ~30% to fit the actual core visible animation */}
-        <div 
+        <div
           id="hero-colored-area"
           className="absolute z-20 w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
@@ -144,59 +118,66 @@ export function Hero() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className="w-full md:w-[57%] max-h-[71vh] md:max-h-[53vh] object-contain mix-blend-screen translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
-          src="https://img.yjr.ink/%E5%8A%A8%E7%94%BB2.1%20(1).mp4"
+          src={videoMedia.heroLoop}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
 
-      {/* Canvas Reveal Effect Background */}
-      <div 
+      <div
         className="absolute inset-0 w-full h-full z-30 pointer-events-none [&_*]:!pointer-events-none opacity-20 md:opacity-20 mix-blend-screen global-bg-effect"
-        style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}
+        style={{
+          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+        }}
       >
         {!isScrolled && (
-          <CanvasRevealEffect
-            animationSpeed={3}
-            colors={[
-              [62, 49, 242],
-              [120, 0, 255],
-            ]}
-            dotSize={isMobile ? 4.875 : 6.5}
-            totalSize={isMobile ? 24.375 : 32.5}
-            showGradient={false}
-          />
+          <Suspense fallback={null}>
+            <CanvasRevealEffect
+              animationSpeed={3}
+              colors={[
+                [62, 49, 242],
+                [120, 0, 255],
+              ]}
+              dotSize={isMobile ? 4.875 : 6.5}
+              totalSize={isMobile ? 24.375 : 32.5}
+              showGradient={false}
+            />
+          </Suspense>
         )}
       </div>
 
-      {/* Light Rays Background Effect */}
-      <div 
+      <div
         className="absolute inset-0 w-full h-full z-20 pointer-events-none [&_*]:!pointer-events-none mix-blend-screen opacity-70 global-bg-effect"
-        style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}
+        style={{
+          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+        }}
       >
         {!isScrolled && (
-          <LightRays
-            raysColor="#3e31f2"
-            raysOrigin="top-center"
-            raysSpeed={1}
-            lightSpread={1}
-            rayLength={2}
-            pulsating={false}
-            fadeDistance={1}
-            saturation={1}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0}
-            distortion={0}
-            className="w-full h-full"
-          />
+          <Suspense fallback={null}>
+            <LightRays
+              raysColor="#3e31f2"
+              raysOrigin="top-center"
+              raysSpeed={1}
+              lightSpread={1}
+              rayLength={2}
+              pulsating={false}
+              fadeDistance={1}
+              saturation={1}
+              followMouse
+              mouseInfluence={0.1}
+              noiseAmount={0}
+              distortion={0}
+              className="w-full h-full"
+            />
+          </Suspense>
         )}
       </div>
 
-      {/* Hero Content */}
       <div className="relative z-40 flex flex-col items-center justify-center w-full h-full mt-12 md:mt-16 translate-y-[-100px] md:translate-y-0 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -205,9 +186,10 @@ export function Hero() {
           className="z-20 mt-[calc(32vh+49px)] md:mt-[calc(52vh-180px)] mb-4 text-white/75 text-lg md:text-2xl font-light tracking-wide flex flex-col md:flex-row items-center text-center pointer-events-auto"
         >
           <div className="flex items-center mb-1 md:mb-0">
-            A<span 
+            A
+            <span
               className="inline-flex justify-center w-[120px] md:w-[150px] text-white/75 mx-3 md:mx-6 overflow-hidden text-[10px] md:text-base"
-              style={{ fontFamily: '"Press Start 2P", cursive' }}
+              style={{ fontFamily: '"BitcountGridDouble", monospace' }}
             >
               <AnimatePresence mode="wait">
                 <motion.span
@@ -215,7 +197,7 @@ export function Hero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4, ease: "backOut" }}
+                  transition={{ duration: 0.4, ease: 'backOut' }}
                   className="inline-block uppercase"
                 >
                   {ROLES[roleIndex]}
@@ -225,14 +207,14 @@ export function Hero() {
           </div>
           <span className="mt-1 md:mt-0 text-sm md:text-xl">Focusing On Visual Design.</span>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled ? -10 : 0 }}
           transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-50 mt-4 md:mt-5 pointer-events-auto"
         >
-          <button 
+          <button
             className="hidden md:flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-full px-6 py-3 md:px-8 md:py-4 text-xs md:text-sm font-medium uppercase tracking-widest text-white hover:bg-white/20 transition-colors cursor-pointer"
             onClick={() => {
               document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -241,8 +223,7 @@ export function Hero() {
             EXPLORE WORKS
           </button>
 
-          {/* Mobile Downward Arrows Animation */}
-          <div 
+          <div
             className="md:hidden flex flex-col items-center justify-center -space-y-4 opacity-70 cursor-pointer"
             onClick={() => {
               document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -254,13 +235,13 @@ export function Hero() {
                 animate={{ opacity: [0.2, 1, 0.2] }}
                 transition={{
                   duration: 2,
-                  ease: "easeInOut",
+                  ease: 'easeInOut',
                   repeat: Infinity,
                   delay: i * 0.3,
                 }}
               >
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                  <path d="m6 9 6 6 6-6"/>
+                  <path d="m6 9 6 6 6-6" />
                 </svg>
               </motion.div>
             ))}
@@ -268,21 +249,20 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Bottom Marquee */}
       <div className="absolute bottom-0 left-0 w-full z-10 pb-4 md:pb-8 opacity-40 grayscale pointer-events-none h-10 md:h-auto">
-        <Marquee gradient={false} speed={30} autoFill={true}>
-          <div 
+        <Marquee gradient={false} speed={30} autoFill>
+          <div
             className="flex items-center space-x-8 md:space-x-16 pr-8 md:pr-16 text-xs md:text-xl tracking-widest uppercase text-white"
-            style={{ fontFamily: '"Press Start 2P", cursive' }}
+            style={{ fontFamily: '"BitcountGridDouble", monospace' }}
           >
             <span>VISUAL DESIGN</span>
-            <span className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-white"></span>
+            <span className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-white" />
             <span>AIGC</span>
-            <span className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-white"></span>
+            <span className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-white" />
             <span>IP</span>
-            <span className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-white"></span>
+            <span className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-white" />
             <span>PERSONAL PRACTICE</span>
-            <span className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-white"></span>
+            <span className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-white" />
           </div>
         </Marquee>
       </div>
