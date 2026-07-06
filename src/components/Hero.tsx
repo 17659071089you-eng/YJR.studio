@@ -80,7 +80,7 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-[1] opacity-80"
+        className="absolute inset-0 w-full h-full z-0 opacity-80"
         style={{
           maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
@@ -90,17 +90,12 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-[4] flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 w-full h-full z-10 flex items-center justify-center pointer-events-none"
         style={{
           maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
         }}
       >
-        <div
-          id="hero-colored-area"
-          className="absolute z-[5] w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
-        />
-
         <motion.video
           ref={heroVideoRef}
           autoPlay
@@ -115,6 +110,13 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isVideoReady ? 1 : 0, y: isVideoReady ? 0 : 30 }}
           transition={{ duration: 0.45, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </div>
+
+      <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+        <div
+          id="hero-colored-area"
+          className="absolute w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
       </div>
 
@@ -238,7 +240,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full z-10 pb-4 md:pb-8 opacity-40 grayscale pointer-events-none h-10 md:h-auto">
+      <div className="absolute bottom-0 left-0 w-full z-40 pb-4 md:pb-8 opacity-40 grayscale pointer-events-none h-10 md:h-auto">
         <Marquee gradient={false} speed={30} autoFill>
           <div
             className="flex items-center space-x-8 md:space-x-16 pr-8 md:pr-16 text-xs md:text-xl tracking-widest uppercase text-white"

@@ -111,7 +111,7 @@ export function Navbar() {
         style={{ WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)', maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)' }}
       />
       
-      <div className="fixed top-[calc(max(1rem,env(safe-area-inset-top))-5px)] md:top-[calc(1.5rem+20px)] left-0 right-0 z-[60] flex flex-col items-center pointer-events-none px-4 md:px-0 w-full">
+      <div className="fixed top-[calc(max(1rem,env(safe-area-inset-top))-5px)] md:top-[calc(1.5rem+20px)] left-0 right-0 z-50 flex flex-col items-center pointer-events-none px-4 md:px-0 w-full">
         {/* Logo at top-left */}
         <motion.div 
           className={cn(
