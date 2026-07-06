@@ -125,7 +125,13 @@ export default function App() {
       <div className="relative z-[10]">
         <main>
           <Hero />
-          <div className="relative z-[20] bg-[#050505]">
+          <div
+            className="relative z-[20] bg-[rgba(5,5,5,0.68)] supports-[backdrop-filter]:backdrop-blur-[1px]"
+            style={{
+              backgroundImage:
+                'linear-gradient(180deg, rgba(5,5,5,0.72) 0%, rgba(5,5,5,0.62) 24%, rgba(5,5,5,0.78) 100%)',
+            }}
+          >
             <Suspense fallback={null}>
               <Projects />
               <Gallery />
