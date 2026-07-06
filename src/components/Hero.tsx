@@ -2,9 +2,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import Marquee from 'react-fast-marquee';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { videoMedia } from '../lib/media';
-import { PixelGridOverlay } from './ui/pixel-grid-overlay';
 
 const LightRays = lazy(() => import('./LightRays'));
+const CanvasRevealEffect = lazy(() =>
+  import('./ui/canvas-reveal-effect').then((module) => ({ default: module.CanvasRevealEffect }))
+);
 
 const ROLES = ['Creative', 'Designer', 'Developer', 'Artist', 'Thinker', 'Creator'];
 
@@ -118,16 +120,18 @@ export function Hero() {
         }}
       >
         {!isScrolled && (
-          <PixelGridOverlay
-            colors={[
-              [62, 49, 242],
-              [120, 0, 255],
-            ]}
-            dotSize={isMobile ? 5 : 7}
-            totalSize={isMobile ? 20 : 28}
-            showGradient={false}
-            opacity={0.28}
-          />
+          <Suspense fallback={null}>
+            <CanvasRevealEffect
+              animationSpeed={3}
+              colors={[
+                [62, 49, 242],
+                [120, 0, 255],
+              ]}
+              dotSize={isMobile ? 4.875 : 6.5}
+              totalSize={isMobile ? 24.375 : 32.5}
+              showGradient={false}
+            />
+          </Suspense>
         )}
       </div>
 
