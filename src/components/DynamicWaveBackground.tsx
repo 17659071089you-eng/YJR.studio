@@ -148,7 +148,7 @@ const DynamicWaveBackground = () => {
   return (
     <canvas 
       ref={canvasRef} 
-      className="fixed inset-0 w-full h-full z-[15] pointer-events-none opacity-30 mix-blend-screen" 
+      className="fixed inset-0 w-full h-full z-[2] pointer-events-none opacity-30 mix-blend-screen" 
       style={{
         maskImage: 'linear-gradient(to bottom, transparent 0%, transparent 30%, black 70%, black 100%)',
         WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, transparent 30%, black 70%, black 100%)'
