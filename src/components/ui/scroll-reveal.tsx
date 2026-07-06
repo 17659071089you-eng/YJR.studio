@@ -23,17 +23,15 @@ export const createStaggerItem = (delay = 0, y = 44): Variants => ({
   hidden: {
     opacity: 0,
     y,
-    scale: 0.985,
-    filter: 'blur(8px)',
+    scale: 0.992,
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    filter: 'blur(0px)',
     transition: {
       delay,
-      duration: 0.95,
+      duration: 0.78,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -108,13 +106,11 @@ export function ScrollReveal({
   const hiddenState = {
     opacity: 0,
     y,
-    filter: `blur(${blur}px)`,
   } as const;
 
   const visibleState = {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
   } as const;
 
   return (
@@ -130,7 +126,7 @@ export function ScrollReveal({
             ease: [0.22, 1, 0.36, 1],
           }
         }
-        className={contentClassName}
+        className={cn('will-change-transform', contentClassName)}
       >
         {children}
       </motion.div>

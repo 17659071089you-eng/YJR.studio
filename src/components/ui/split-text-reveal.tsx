@@ -27,11 +27,11 @@ export function SplitTextReveal({
   style,
   tag = 'div',
   delay = 0,
-  duration = 0.95,
-  stagger = 0.035,
+  duration = 0.82,
+  stagger = 0.028,
   amount = 0.2,
-  y = '110%',
-  blur = 6,
+  y = '102%',
+  blur = 0,
   textAlign,
   highlightWords = [],
   highlightGradient = 'linear-gradient(45deg, #3b82f6, #a855f7)',
@@ -88,10 +88,11 @@ export function SplitTextReveal({
       style={{
         textAlign,
         display: 'inline-block',
-        paddingTop: '0.16em',
-        paddingBottom: '0.2em',
-        marginTop: '-0.16em',
-        marginBottom: '-0.2em',
+        overflow: 'visible',
+        paddingTop: '0.22em',
+        paddingBottom: '0.26em',
+        marginTop: '-0.22em',
+        marginBottom: '-0.26em',
         ...style,
       }}
       aria-label={text}
@@ -102,7 +103,7 @@ export function SplitTextReveal({
         return (
           <span
             key={`${word}-${wordIndex}`}
-            className="inline-flex whitespace-nowrap align-bottom overflow-hidden pt-[0.16em] pb-[0.2em] -mt-[0.16em] -mb-[0.2em] mr-[0.18em] last:mr-0"
+            className="inline-flex whitespace-nowrap align-bottom overflow-hidden pt-[0.24em] pb-[0.28em] -mt-[0.24em] -mb-[0.28em] mr-[0.18em] last:mr-0"
             aria-hidden="true"
           >
             {word.split('').map((char, charIndex) => {
@@ -118,19 +119,16 @@ export function SplitTextReveal({
                     initial={{
                       opacity: 0,
                       y,
-                      filter: `blur(${blur}px)`,
                     }}
                     animate={
                       hasRevealed
                         ? {
                             opacity: 1,
                             y: 0,
-                            filter: 'blur(0px)',
                           }
                         : {
                             opacity: 0,
                             y,
-                            filter: `blur(${blur}px)`,
                           }
                     }
                     transition={{

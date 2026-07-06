@@ -127,10 +127,9 @@ export function Projects() {
                 transform: 'scaleY(0.85)',
                 transformOrigin: 'bottom left'
               }}
-              y="108%"
-              blur={4}
-              duration={0.92}
-              stagger={0.038}
+              y="100%"
+              duration={0.78}
+              stagger={0.024}
             />
             <SplitTextReveal
               text="Works"
@@ -147,10 +146,9 @@ export function Projects() {
                 transformOrigin: 'top left'
               }}
               delay={0.08}
-              y="108%"
-              blur={4}
-              duration={0.92}
-              stagger={0.038}
+              y="100%"
+              duration={0.78}
+              stagger={0.024}
               highlightWords={['Works']}
             />
           </div>

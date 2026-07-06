@@ -130,10 +130,9 @@ export function ContactFooter() {
               transformOrigin: 'top',
             }}
             textAlign="center"
-            y="108%"
-            blur={4}
-            duration={0.94}
-            stagger={0.036}
+            y="100%"
+            duration={0.8}
+            stagger={0.024}
           />
           <ScrollReveal
             className="max-w-xl"

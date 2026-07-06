@@ -183,25 +183,24 @@ export function Gallery() {
       <section id="gallery" className="pt-12 pb-32 px-6 md:px-12 relative z-30">
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-            <div className="flex flex-col space-y-2 md:space-y-4">
+            <div className="flex flex-col space-y-2 md:space-y-4 overflow-visible">
               <SplitTextReveal
                 text="Gallery"
-                className="tracking-tight text-white text-left"
+                className="tracking-tight text-white text-left overflow-visible"
                 style={{
                   fontFamily: 'JosefinSansBold, system-ui',
                   fontSize: '106px',
                   fontWeight: 'normal',
                   fontStyle: 'normal',
                   textDecorationLine: 'none',
-                  lineHeight: '95px',
+                  lineHeight: '1.04',
                   textTransform: 'none',
                   transform: 'scaleY(0.85)',
                   transformOrigin: 'top'
                 }}
-                y="108%"
-                blur={4}
-                duration={0.92}
-                stagger={0.038}
+                y="100%"
+                duration={0.78}
+                stagger={0.024}
                 highlightWords={['Gallery', 'GALLERY']}
               />
             </div>
