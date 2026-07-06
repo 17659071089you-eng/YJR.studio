@@ -4,7 +4,6 @@ export const brandingMedia = {
 
 export const videoMedia = {
   heroLoop: '/media/video/hero-loop.mp4',
-  loaderIntro: '/media/video/loader-intro.mp4',
 } as const;
 
 export const profileMedia = {

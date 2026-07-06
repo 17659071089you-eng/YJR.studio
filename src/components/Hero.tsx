@@ -80,7 +80,7 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-[2] opacity-80"
+        className="absolute inset-0 w-full h-full z-[1] opacity-80"
         style={{
           maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
@@ -90,7 +90,7 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-[1] flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 w-full h-full z-[2] flex items-center justify-center pointer-events-none"
         style={{
           maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
