@@ -80,11 +80,12 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-[3] opacity-70"
+        className="absolute inset-0 w-full h-full z-[1] opacity-80"
         style={{
           maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.72) 100%)',
+          background:
+            'radial-gradient(circle at 50% 35%, rgba(62,49,242,0.35), transparent 26%), radial-gradient(circle at 50% 55%, rgba(120,0,255,0.22), transparent 30%), linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.82) 45%, rgba(0,0,0,1) 100%)',
         }}
       />
 
@@ -139,7 +140,7 @@ export function Hero() {
       </div>
 
       <div
-        className="absolute inset-0 w-full h-full z-[24] pointer-events-none [&_*]:!pointer-events-none mix-blend-screen opacity-70 global-bg-effect"
+        className="absolute inset-0 w-full h-full z-20 pointer-events-none [&_*]:!pointer-events-none mix-blend-screen opacity-70 global-bg-effect"
         style={{
           maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',

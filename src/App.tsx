@@ -80,26 +80,16 @@ export default function App() {
   }
 
   return (
-    <div className="bg-[#000] min-h-screen w-full overflow-x-hidden text-white selection:bg-white/30 relative">
+    <div className="bg-black min-h-screen w-full overflow-x-hidden text-white selection:bg-white/30 relative">
       <Suspense fallback={null}>
         <CustomCursor />
       </Suspense>
-
-      <div
-        className="fixed inset-0 z-[1] pointer-events-none mix-blend-screen"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 18%, rgba(62,49,242,0.28), transparent 22%), radial-gradient(circle at 48% 32%, rgba(120,0,255,0.18), transparent 28%), linear-gradient(180deg, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.82) 45%, rgba(0,0,0,1) 100%)',
-        }}
-      />
 
       <div className="global-bg-effect">
         <Suspense fallback={null}>
           <DynamicWaveBackground />
         </Suspense>
       </div>
-
-      <div className="global-grid-pattern fixed inset-0 z-[15] pointer-events-none" />
       
       {/* Global Pixel Glow Effect for other sections */}
       <div 
@@ -119,34 +109,22 @@ export default function App() {
         )}
       </div>
 
-      <Navbar />
-
       {/* Render main content */}
-      <div className="relative z-[10]">
+      <div className="relative">
+        <Navbar />
         <main>
           <Hero />
-          <div
-            className="relative z-[20] bg-[rgba(5,5,5,0.68)] supports-[backdrop-filter]:backdrop-blur-[1px]"
-            style={{
-              backgroundImage:
-                'linear-gradient(180deg, rgba(5,5,5,0.72) 0%, rgba(5,5,5,0.62) 24%, rgba(5,5,5,0.78) 100%)',
-            }}
-          >
             <Suspense fallback={null}>
               <Projects />
               <Gallery />
               <Profile />
             </Suspense>
-            <Suspense fallback={null}>
-              <ContactFooter />
-            </Suspense>
-          </div>
         </main>
+        <Suspense fallback={null}>
+          <ContactFooter />
+          <ScrollToTop />
+        </Suspense>
       </div>
-
-      <Suspense fallback={null}>
-        <ScrollToTop />
-      </Suspense>
     </div>
   );
 }

@@ -152,7 +152,7 @@ export function Projects() {
 
         {/* Floating preview image portal */}
         <div
-          className="pointer-events-none fixed z-[50] overflow-hidden rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 hidden md:block"
+          className="pointer-events-none fixed z-[60] overflow-hidden rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 hidden md:block"
           style={{
             left: 0,
             top: 0,
