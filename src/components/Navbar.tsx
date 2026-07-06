@@ -126,6 +126,9 @@ export function Navbar() {
           <img 
             src={brandingMedia.logo}
             alt="Logo" 
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
             className="w-full h-full object-contain object-left md:object-left-top drop-shadow-md" 
           />
         </motion.div>

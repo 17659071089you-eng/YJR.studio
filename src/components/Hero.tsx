@@ -14,6 +14,7 @@ export function Hero() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showLightRays, setShowLightRays] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -43,6 +44,8 @@ export function Hero() {
     if (!video) return;
 
     video.muted = true;
+    video.preload = 'auto';
+    video.load();
     const tryPlay = () => video.play().catch(() => {});
     tryPlay();
     const timer = window.setTimeout(tryPlay, 500);
@@ -87,7 +90,7 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-10 flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 w-full h-full z-[5] flex items-center justify-center pointer-events-none"
         style={{
           maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
@@ -95,7 +98,7 @@ export function Hero() {
       >
         <div
           id="hero-colored-area"
-          className="absolute z-20 w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
+          className="absolute z-[6] w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
 
         <motion.video
@@ -104,12 +107,14 @@ export function Hero() {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
+          disablePictureInPicture
           className="w-full md:w-[57%] max-h-[71vh] md:max-h-[53vh] object-contain mix-blend-screen translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-none scale-[1.14] md:scale-100"
           src={videoMedia.heroLoop}
+          onLoadedData={() => setIsVideoReady(true)}
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          animate={{ opacity: isVideoReady ? 1 : 0, y: isVideoReady ? 0 : 30 }}
+          transition={{ duration: 0.45, delay: 0, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
 
