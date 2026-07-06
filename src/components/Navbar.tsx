@@ -1,14 +1,22 @@
-import { motion, AnimatePresence, useScroll } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, type MouseEvent, type ReactNode } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { brandingMedia } from '../lib/media';
 
-function MagneticLink({ href, onClick, children, className, isActive }: { href: string, onClick: (e: any) => void, children: React.ReactNode, className?: string, isActive?: boolean }) {
+interface MagneticLinkProps {
+  href: string;
+  onClick: (e: MouseEvent<HTMLAnchorElement>) => void;
+  children: ReactNode;
+  className?: string;
+  isActive?: boolean;
+}
+
+function MagneticLink({ href, onClick, children, className, isActive }: MagneticLinkProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleMouse = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMouse = (e: MouseEvent<HTMLAnchorElement>) => {
     const { clientX, clientY } = e;
     const { height, width, left, top } = ref.current!.getBoundingClientRect();
     const middleX = clientX - (left + width / 2);
@@ -45,7 +53,6 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const sections = ['home', 'projects', 'gallery', 'profile', 'contact'];
@@ -78,14 +85,18 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
+  const scrollToSection = (id: string) => {
     setActiveSection(id);
     setIsMobileMenuOpen(false); // Close mobile menu if open
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleScrollTo = (e: MouseEvent<HTMLElement>, id: string) => {
+    e.preventDefault();
+    scrollToSection(id);
   };
 
   return (
@@ -107,7 +118,7 @@ export function Navbar() {
             "fixed md:absolute left-4 md:left-8 top-[calc(max(1rem,env(safe-area-inset-top))+17px)] -translate-y-1/2 md:translate-y-0 md:top-[calc(0.25rem-44.5px)] cursor-pointer flex items-center md:items-start justify-start w-[211px] h-[105px] md:w-[296px] md:h-[148px] scale-80 origin-left md:scale-100 md:origin-center",
             isScrolled ? "pointer-events-none" : "pointer-events-auto"
           )}
-          onClick={(e) => handleScrollTo(e as any, 'home')}
+          onClick={() => scrollToSection('home')}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled && window.innerWidth >= 768 ? -10 : 0 }}
           transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -153,7 +164,7 @@ export function Navbar() {
                  "relative flex items-center justify-center min-w-[35px] min-h-[35px] rounded-full text-white bg-transparent hover:bg-white/10 transition-colors",
                  isMobileMenuOpen && "hidden"
                )}
-               onClick={(e) => handleScrollTo(e as any, 'contact')}
+               onClick={() => scrollToSection('contact')}
             >
               <span className="relative flex items-center justify-center min-w-5 h-5 w-5">
                 <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" className="absolute w-5 h-5 animate-ping opacity-75 text-white/50 [animation-duration:3s]">
@@ -176,7 +187,7 @@ export function Navbar() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isScrolled ? 0 : 1, y: isScrolled && window.innerWidth >= 768 ? -10 : 0 }}
           transition={{ duration: 0.8, delay: isScrolled ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
-          onClick={(e) => handleScrollTo(e as any, 'contact')}
+          onClick={() => scrollToSection('contact')}
         >
           <span className="relative flex min-w-2 h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>

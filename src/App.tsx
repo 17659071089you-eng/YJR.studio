@@ -7,6 +7,7 @@ import { lazy, Suspense, useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { RotateCcw } from 'lucide-react';
+import { PixelGridOverlay } from './components/ui/pixel-grid-overlay';
 
 const Projects = lazy(() => import('./components/Projects').then((module) => ({ default: module.Projects })));
 const Gallery = lazy(() => import('./components/Gallery').then((module) => ({ default: module.Gallery })));
@@ -15,9 +16,6 @@ const ContactFooter = lazy(() => import('./components/ContactFooter').then((modu
 const ScrollToTop = lazy(() => import('./components/ScrollToTop').then((module) => ({ default: module.ScrollToTop })));
 const DynamicWaveBackground = lazy(() => import('./components/DynamicWaveBackground'));
 const CustomCursor = lazy(() => import('./components/CustomCursor').then((module) => ({ default: module.CustomCursor })));
-const CanvasRevealEffect = lazy(() =>
-  import('./components/ui/canvas-reveal-effect').then((module) => ({ default: module.CanvasRevealEffect }))
-);
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -98,18 +96,19 @@ export default function App() {
         className={`fixed inset-0 w-full h-full z-[16] pointer-events-none mix-blend-screen transition-opacity duration-1000 global-bg-effect ${isScrolled ? 'opacity-20' : 'opacity-0'}`}
       >
         {isScrolled && (
-          <Suspense fallback={null}>
-            <CanvasRevealEffect
-              animationSpeed={3}
-              colors={[
-                [62, 49, 242],
-                [120, 0, 255],
-              ]}
-              dotSize={isMobile ? 4.875 : 6.5}
-              totalSize={isMobile ? 24.375 : 32.5}
-              showGradient={false}
-            />
-          </Suspense>
+          <PixelGridOverlay
+            colors={[
+              [62, 49, 242],
+              [120, 0, 255],
+            ]}
+            dotSize={isMobile ? 4 : 6}
+            totalSize={isMobile ? 24 : 34}
+            showGradient={false}
+            opacity={isMobile ? 0.14 : 0.18}
+            showSecondaryLayer={false}
+            showGlow={false}
+            animated={false}
+          />
         )}
       </div>
 

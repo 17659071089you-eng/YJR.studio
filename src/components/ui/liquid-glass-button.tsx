@@ -321,8 +321,9 @@ export const MetalButton = React.forwardRef<
   }, []);
  
   const buttonText = children || "Button";
+  const resolvedVariant = (variant ?? "default") as ColorVariant;
   const variants = metalButtonVariants(
-    variant,
+    resolvedVariant,
     isPressed,
     isHovered,
     isTouchDevice,

@@ -1,10 +1,39 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Mail, X } from 'lucide-react';
+import { Mail, X, type LucideIcon } from 'lucide-react';
 import { TextPressure } from './TextPressure';
 import { contactMedia } from '../lib/media';
 
-const contacts = [
+type Contact =
+  | {
+      id: string;
+      label: string;
+      value: string;
+      icon: LucideIcon;
+      type: 'lucide';
+      isQr?: false;
+      isLink?: false;
+      link?: never;
+    }
+  | {
+      id: string;
+      label: string;
+      value: string;
+      icon: string;
+      type: 'image';
+      isQr?: boolean;
+      isLink?: boolean;
+      link?: string;
+    };
+
+interface ContactCardProps {
+  contact: Contact;
+  copiedId: string | null;
+  handleCopy: (id: string, val: string) => void;
+  setIsQrModalOpen: (val: boolean) => void;
+}
+
+const contacts: Contact[] = [
   { id: 'email', label: 'Email', value: 'youjiarong_2020@qq.com', icon: Mail, type: 'lucide' },
   { id: 'wechat', label: 'WeChat', value: 'Jaron_u', isQr: true, icon: contactMedia.wechatIcon, type: 'image' },
   { id: 'redbook', label: 'RedBook', value: 'View profile', link: 'https://xhslink.com/m/8n62TzsEteQ', isLink: true, icon: contactMedia.redbookIcon, type: 'image' },
@@ -15,12 +44,7 @@ function ContactCard({
   copiedId,
   handleCopy,
   setIsQrModalOpen,
-}: {
-  contact: any;
-  copiedId: string | null;
-  handleCopy: (id: string, val: string) => void;
-  setIsQrModalOpen: (val: boolean) => void;
-}) {
+}: ContactCardProps) {
   const Icon = contact.icon;
 
   return (
@@ -79,7 +103,7 @@ export function ContactFooter() {
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
 
   const handleCopy = (id: string, value: string) => {
-    navigator.clipboard.writeText(value);
+    navigator.clipboard.writeText(value).catch(() => {});
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -113,13 +137,14 @@ export function ContactFooter() {
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8 mb-32 perspective-1000 w-full max-w-sm md:max-w-none mx-auto">
           {contacts.map((contact) => (
-            <ContactCard
-              key={contact.id}
-              contact={contact}
-              copiedId={copiedId}
-              handleCopy={handleCopy}
-              setIsQrModalOpen={setIsQrModalOpen}
-            />
+            <Fragment key={contact.id}>
+              <ContactCard
+                contact={contact}
+                copiedId={copiedId}
+                handleCopy={handleCopy}
+                setIsQrModalOpen={setIsQrModalOpen}
+              />
+            </Fragment>
           ))}
         </div>
 

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -68,6 +68,13 @@ interface MasonryProps {
   colorShiftOnHover?: boolean;
 }
 
+interface MasonryLayoutItem extends MasonryItem {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 const Masonry = ({
   items,
   ease = 'power3.out',
@@ -88,7 +95,7 @@ const Masonry = ({
   const [containerRef, { width }] = useMeasure();
   const [imagesReady, setImagesReady] = useState(false);
 
-  const getInitialPosition = (item: any) => {
+  const getInitialPosition = (item: MasonryLayoutItem) => {
     const containerRect = containerRef.current?.getBoundingClientRect();
     if (!containerRect) return { x: item.x, y: item.y };
 
@@ -185,7 +192,7 @@ const Masonry = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grid, imagesReady, duration, ease]);
 
-  const handleMouseEnter = (e: React.MouseEvent, item: any) => {
+  const handleMouseEnter = (e: MouseEvent<HTMLDivElement>, item: MasonryLayoutItem) => {
     const element = e.currentTarget;
     const selector = `[data-key="${item.id}"]`;
 
@@ -208,7 +215,7 @@ const Masonry = ({
     }
   };
 
-  const handleMouseLeave = (e: React.MouseEvent, item: any) => {
+  const handleMouseLeave = (e: MouseEvent<HTMLDivElement>, item: MasonryLayoutItem) => {
     const element = e.currentTarget;
     const selector = `[data-key="${item.id}"]`;
 

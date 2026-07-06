@@ -1,11 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef, type CSSProperties } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame, MotionValue } from 'motion/react';
 
 interface TextPressureProps {
   text: string;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   highlightWords?: string[];
+  highlightGradient?: string;
+  disableHover?: boolean;
+}
+
+interface PressureCharProps {
+  char: string;
+  mouseX: MotionValue<number>;
+  mouseY: MotionValue<number>;
+  isHighlighted?: boolean;
+  charIndex?: number;
+  wordLength?: number;
   highlightGradient?: string;
   disableHover?: boolean;
 }
@@ -43,17 +54,18 @@ export function TextPressure({ text, className = '', style, highlightWords = [],
             className="flex mr-[0.3em]"
           >
             {word.split('').map((char, charIndex) => (
-              <PressureChar 
-                key={`${wordIndex}-${charIndex}`} 
-                char={char} 
-                mouseX={mouseX} 
-                mouseY={mouseY} 
-                isHighlighted={isHighlighted}
-                charIndex={charIndex}
-                wordLength={word.length}
-                highlightGradient={highlightGradient}
-                disableHover={disableHover}
-              />
+              <Fragment key={`${wordIndex}-${charIndex}`}>
+                <PressureChar 
+                  char={char} 
+                  mouseX={mouseX} 
+                  mouseY={mouseY} 
+                  isHighlighted={isHighlighted}
+                  charIndex={charIndex}
+                  wordLength={word.length}
+                  highlightGradient={highlightGradient}
+                  disableHover={disableHover}
+                />
+              </Fragment>
             ))}
           </div>
         );
@@ -71,16 +83,7 @@ function PressureChar({
   wordLength = 1,
   highlightGradient = 'linear-gradient(45deg, #3b82f6, #a855f7)',
   disableHover = false
-}: { 
-  char: string; 
-  mouseX: MotionValue<number>;
-  mouseY: MotionValue<number>;
-  isHighlighted?: boolean;
-  charIndex?: number;
-  wordLength?: number;
-  highlightGradient?: string;
-  disableHover?: boolean;
-}) {
+}: PressureCharProps) {
   const charRef = useRef<HTMLSpanElement>(null);
   const charCenter = useRef({ x: 0, y: 0 });
   

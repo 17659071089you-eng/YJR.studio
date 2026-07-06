@@ -2,11 +2,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import Marquee from 'react-fast-marquee';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { videoMedia } from '../lib/media';
+import { PixelGridOverlay } from './ui/pixel-grid-overlay';
 
 const LightRays = lazy(() => import('./LightRays'));
-const CanvasRevealEffect = lazy(() =>
-  import('./ui/canvas-reveal-effect').then((module) => ({ default: module.CanvasRevealEffect }))
-);
 
 const ROLES = ['Creative', 'Designer', 'Developer', 'Artist', 'Thinker', 'Creator'];
 
@@ -15,6 +13,7 @@ export function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showLightRays, setShowLightRays] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -43,42 +42,29 @@ export function Hero() {
     const video = heroVideoRef.current;
     if (!video) return;
 
-    let frameId = 0;
-
-    const checkLoop = () => {
-      if (video.duration && video.currentTime >= video.duration - 2) {
-        video.currentTime = 0;
-        video.play().catch(() => {});
-      }
-      frameId = requestAnimationFrame(checkLoop);
-    };
-
-    const onPlay = () => {
-      frameId = requestAnimationFrame(checkLoop);
-    };
-
-    const onPause = () => {
-      cancelAnimationFrame(frameId);
-    };
-
-    video.addEventListener('play', onPlay);
-    video.addEventListener('pause', onPause);
-
     video.muted = true;
-    video.play().catch(() => {});
-    const timer = setTimeout(() => video.play().catch(() => {}), 500);
+    const tryPlay = () => video.play().catch(() => {});
+    tryPlay();
+    const timer = window.setTimeout(tryPlay, 500);
 
     if (!video.paused) {
-      frameId = requestAnimationFrame(checkLoop);
+      tryPlay();
     }
 
     return () => {
-      clearTimeout(timer);
-      video.removeEventListener('play', onPlay);
-      video.removeEventListener('pause', onPause);
-      cancelAnimationFrame(frameId);
+      window.clearTimeout(timer);
     };
   }, []);
+
+  useEffect(() => {
+    if (isMobile || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setShowLightRays(false);
+      return;
+    }
+
+    const timer = window.setTimeout(() => setShowLightRays(true), 1200);
+    return () => window.clearTimeout(timer);
+  }, [isMobile]);
 
   return (
     <section id="home" className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -135,18 +121,19 @@ export function Hero() {
         }}
       >
         {!isScrolled && (
-          <Suspense fallback={null}>
-            <CanvasRevealEffect
-              animationSpeed={3}
-              colors={[
-                [62, 49, 242],
-                [120, 0, 255],
-              ]}
-              dotSize={isMobile ? 4.875 : 6.5}
-              totalSize={isMobile ? 24.375 : 32.5}
-              showGradient={false}
-            />
-          </Suspense>
+          <PixelGridOverlay
+            colors={[
+              [62, 49, 242],
+              [120, 0, 255],
+            ]}
+            dotSize={isMobile ? 4 : 6}
+            totalSize={isMobile ? 24 : 32}
+            showGradient={false}
+            opacity={isMobile ? 0.16 : 0.24}
+            showSecondaryLayer={!isMobile}
+            showGlow={!isMobile}
+            animated={!isMobile}
+          />
         )}
       </div>
 
@@ -157,7 +144,7 @@ export function Hero() {
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         }}
       >
-        {!isScrolled && (
+        {!isScrolled && showLightRays && (
           <Suspense fallback={null}>
             <LightRays
               raysColor="#3e31f2"
