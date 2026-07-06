@@ -21,6 +21,14 @@ interface SplitTextRevealProps {
 
 const normalizeWord = (word: string) => word.replace(/\s+/g, '').toUpperCase();
 
+const isCompactMotionMode = () => {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return window.innerWidth < 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+};
+
 export function SplitTextReveal({
   text,
   className,
@@ -39,6 +47,20 @@ export function SplitTextReveal({
   const containerRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(containerRef, { ...revealViewport, amount });
   const [hasRevealed, setHasRevealed] = useState(false);
+  const [isCompactMotion, setIsCompactMotion] = useState(false);
+
+  useEffect(() => {
+    const updateCompactMotion = () => {
+      setIsCompactMotion(isCompactMotionMode());
+    };
+
+    updateCompactMotion();
+    window.addEventListener('resize', updateCompactMotion);
+
+    return () => {
+      window.removeEventListener('resize', updateCompactMotion);
+    };
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -67,19 +89,18 @@ export function SplitTextReveal({
     };
 
     const frameId = window.requestAnimationFrame(checkViewportPosition);
-    window.addEventListener('scroll', checkViewportPosition, { passive: true });
-    window.addEventListener('resize', checkViewportPosition);
 
     return () => {
       window.cancelAnimationFrame(frameId);
-      window.removeEventListener('scroll', checkViewportPosition);
-      window.removeEventListener('resize', checkViewportPosition);
     };
   }, [amount, hasRevealed]);
 
   const words = text.split(' ');
   let globalCharIndex = 0;
   const Tag = tag as ElementType;
+  const effectiveY = isCompactMotion ? '28%' : y;
+  const effectiveDuration = isCompactMotion ? Math.min(0.62, duration * 0.72) : duration;
+  const effectiveStagger = isCompactMotion ? Math.min(0.018, stagger * 0.45) : stagger;
 
   return (
     <Tag
@@ -106,9 +127,9 @@ export function SplitTextReveal({
             className="inline-flex whitespace-nowrap align-bottom overflow-hidden pt-[0.24em] pb-[0.28em] -mt-[0.24em] -mb-[0.28em] mr-[0.18em] last:mr-0"
             aria-hidden="true"
           >
-            {word.split('').map((char, charIndex) => {
+            {(isCompactMotion ? [word] : word.split('')).map((char, charIndex) => {
               const currentIndex = globalCharIndex;
-              globalCharIndex += 1;
+              globalCharIndex += isCompactMotion ? 1 : 1;
 
               return (
                 <span
@@ -118,7 +139,7 @@ export function SplitTextReveal({
                   <motion.span
                     initial={{
                       opacity: 0,
-                      y,
+                      y: effectiveY,
                     }}
                     animate={
                       hasRevealed
@@ -128,12 +149,12 @@ export function SplitTextReveal({
                           }
                         : {
                             opacity: 0,
-                            y,
+                            y: effectiveY,
                           }
                     }
                     transition={{
-                      duration,
-                      delay: delay + currentIndex * stagger,
+                      duration: effectiveDuration,
+                      delay: delay + currentIndex * effectiveStagger,
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     className="inline-block will-change-transform"
@@ -142,7 +163,7 @@ export function SplitTextReveal({
                         ? {
                             backgroundImage: highlightGradient,
                             backgroundSize: `${Math.max(word.length, 1) * 100}% 100%`,
-                            backgroundPosition: `${word.length > 1 ? (charIndex / (word.length - 1)) * 100 : 0}% 0%`,
+                            backgroundPosition: `${word.length > 1 && !isCompactMotion ? (charIndex / (word.length - 1)) * 100 : 50}% 0%`,
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',

@@ -228,7 +228,7 @@ export function Hero() {
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         }}
       >
-        {!isScrolled && showCanvasReveal && (
+        {!isMobile && !isScrolled && showCanvasReveal && (
           <Suspense fallback={null}>
             <CanvasRevealEffect
               animationSpeed={3}

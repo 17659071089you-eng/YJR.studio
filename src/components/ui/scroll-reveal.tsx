@@ -8,34 +8,55 @@ export const revealViewport = {
   margin: '0px 0px -10% 0px',
 } as const;
 
+const isCompactMotionMode = () => {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return window.innerWidth < 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+};
+
 export const createStaggerContainer = (staggerChildren = 0.12, delayChildren = 0) =>
-  ({
-    hidden: {},
+  {
+    const compactMotion = isCompactMotionMode();
+    const effectiveStagger = compactMotion ? Math.min(0.05, staggerChildren * 0.45) : staggerChildren;
+    const effectiveDelay = compactMotion ? delayChildren * 0.35 : delayChildren;
+
+    return ({
+      hidden: {},
+      visible: {
+        transition: {
+          staggerChildren: effectiveStagger,
+          delayChildren: effectiveDelay,
+        },
+      },
+    }) satisfies Variants;
+  };
+
+export const createStaggerItem = (delay = 0, y = 44): Variants => {
+  const compactMotion = isCompactMotionMode();
+  const effectiveY = compactMotion ? Math.min(18, y * 0.42) : y;
+  const effectiveDelay = compactMotion ? delay * 0.45 : delay;
+  const effectiveDuration = compactMotion ? 0.56 : 0.78;
+
+  return {
+    hidden: {
+      opacity: 0,
+      y: effectiveY,
+      scale: compactMotion ? 1 : 0.992,
+    },
     visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
       transition: {
-        staggerChildren,
-        delayChildren,
+        delay: effectiveDelay,
+        duration: effectiveDuration,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
-  }) satisfies Variants;
-
-export const createStaggerItem = (delay = 0, y = 44): Variants => ({
-  hidden: {
-    opacity: 0,
-    y,
-    scale: 0.992,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      delay,
-      duration: 0.78,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-});
+  };
+};
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -65,6 +86,20 @@ export function ScrollReveal({
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(contentRef, { ...revealViewport, amount });
   const [hasRevealed, setHasRevealed] = useState(false);
+  const [isCompactMotion, setIsCompactMotion] = useState(false);
+
+  useEffect(() => {
+    const updateCompactMotion = () => {
+      setIsCompactMotion(isCompactMotionMode());
+    };
+
+    updateCompactMotion();
+    window.addEventListener('resize', updateCompactMotion);
+
+    return () => {
+      window.removeEventListener('resize', updateCompactMotion);
+    };
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -93,19 +128,19 @@ export function ScrollReveal({
     };
 
     const frameId = window.requestAnimationFrame(checkViewportPosition);
-    window.addEventListener('scroll', checkViewportPosition, { passive: true });
-    window.addEventListener('resize', checkViewportPosition);
 
     return () => {
       window.cancelAnimationFrame(frameId);
-      window.removeEventListener('scroll', checkViewportPosition);
-      window.removeEventListener('resize', checkViewportPosition);
     };
   }, [amount, hasRevealed]);
 
+  const effectiveY = isCompactMotion ? Math.min(24, y * 0.45) : y;
+  const effectiveDuration = isCompactMotion ? Math.min(0.58, duration * 0.65) : duration;
+  const effectiveDelay = isCompactMotion ? delay * 0.5 : delay;
+
   const hiddenState = {
     opacity: 0,
-    y,
+    y: effectiveY,
   } as const;
 
   const visibleState = {
@@ -121,8 +156,8 @@ export function ScrollReveal({
         animate={hasRevealed ? visibleState : hiddenState}
         transition={
           transition ?? {
-            delay,
-            duration,
+            delay: effectiveDelay,
+            duration: effectiveDuration,
             ease: [0.22, 1, 0.36, 1],
           }
         }

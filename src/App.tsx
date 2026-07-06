@@ -87,31 +87,35 @@ export default function App() {
         <CustomCursor />
       </Suspense>
 
-      <div className="global-bg-effect">
-        <Suspense fallback={null}>
-          <DynamicWaveBackground />
-        </Suspense>
-      </div>
+      {!isMobile && (
+        <div className="global-bg-effect">
+          <Suspense fallback={null}>
+            <DynamicWaveBackground />
+          </Suspense>
+        </div>
+      )}
       
       {/* Global Pixel Glow Effect for other sections */}
-      <div 
-        className={`fixed inset-0 w-full h-full z-[16] pointer-events-none mix-blend-screen transition-opacity duration-1000 global-bg-effect ${isScrolled ? 'opacity-20' : 'opacity-0'}`}
-      >
-        {isScrolled && (
-          <Suspense fallback={null}>
-            <CanvasRevealEffect
-              animationSpeed={3}
-              colors={[
-                [62, 49, 242],
-                [120, 0, 255],
-              ]}
-              dotSize={isMobile ? 4.875 : 6.5}
-              totalSize={isMobile ? 24.375 : 32.5}
-              showGradient={false}
-            />
-          </Suspense>
-        )}
-      </div>
+      {!isMobile && (
+        <div 
+          className={`fixed inset-0 w-full h-full z-[16] pointer-events-none mix-blend-screen transition-opacity duration-1000 global-bg-effect ${isScrolled ? 'opacity-20' : 'opacity-0'}`}
+        >
+          {isScrolled && (
+            <Suspense fallback={null}>
+              <CanvasRevealEffect
+                animationSpeed={3}
+                colors={[
+                  [62, 49, 242],
+                  [120, 0, 255],
+                ]}
+                dotSize={6.5}
+                totalSize={32.5}
+                showGradient={false}
+              />
+            </Suspense>
+          )}
+        </div>
+      )}
 
       {/* Render main content */}
       <div className="relative">

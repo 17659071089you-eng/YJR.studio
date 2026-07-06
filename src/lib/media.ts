@@ -1,5 +1,5 @@
 export const brandingMedia = {
-  logo: '/media/branding/logo.png',
+  logo: '/media/branding/logo.png?v=20260706b',
 } as const;
 
 export const videoMedia = {

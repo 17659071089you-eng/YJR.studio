@@ -110,21 +110,21 @@ export function ContactFooter() {
   };
 
   return (
-    <footer id="contact" className="relative pt-12 md:pt-24 pb-32 -mt-32 md:-mt-32 px-6 md:px-12 overflow-hidden z-20 flex justify-center">
+    <footer id="contact" className="relative pt-12 md:pt-24 pb-32 -mt-32 md:-mt-32 px-6 md:px-12 overflow-x-hidden overflow-y-visible z-20 flex justify-center">
       <div className="max-w-[1440px] mx-auto w-full">
-        <div className="mb-10 md:mb-24 flex flex-col items-center justify-center w-full space-y-4">
+        <div className="mb-10 md:mb-24 flex flex-col items-center justify-center w-full space-y-4 overflow-visible">
           <SplitTextReveal
             text="THANK YOU."
             highlightWords={['YOU.']}
             highlightGradient="linear-gradient(45deg, #ec4899, #f97316)"
-            className="tracking-tight text-white flex justify-center text-center flex-nowrap whitespace-nowrap"
+            className="tracking-tight text-white flex justify-center text-center flex-nowrap whitespace-nowrap overflow-visible"
             style={{
               fontFamily: 'JosefinSansBold, system-ui',
               fontSize: 'clamp(36px, 12vw, 106px)',
               fontWeight: 'normal',
               fontStyle: 'normal',
               textDecorationLine: 'none',
-              lineHeight: '0.9',
+              lineHeight: '1.04',
               textTransform: 'none',
               transform: 'scaleY(0.85)',
               transformOrigin: 'top',
