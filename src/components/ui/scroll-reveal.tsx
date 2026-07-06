@@ -71,15 +71,39 @@ export function ScrollReveal({
   useEffect(() => {
     if (isInView) {
       setHasRevealed(true);
+    }
+  }, [isInView]);
+
+  useEffect(() => {
+    if (hasRevealed) {
       return;
     }
 
-    const fallbackTimer = window.setTimeout(() => {
-      setHasRevealed(true);
-    }, 1600);
+    const checkViewportPosition = () => {
+      const node = contentRef.current;
+      if (!node) {
+        return;
+      }
 
-    return () => window.clearTimeout(fallbackTimer);
-  }, [isInView]);
+      const rect = node.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const triggerLine = viewportHeight * (1 - amount);
+
+      if (rect.top <= triggerLine && rect.bottom >= 0) {
+        setHasRevealed(true);
+      }
+    };
+
+    const frameId = window.requestAnimationFrame(checkViewportPosition);
+    window.addEventListener('scroll', checkViewportPosition, { passive: true });
+    window.addEventListener('resize', checkViewportPosition);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener('scroll', checkViewportPosition);
+      window.removeEventListener('resize', checkViewportPosition);
+    };
+  }, [amount, hasRevealed]);
 
   const hiddenState = {
     opacity: 0,
