@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Mail, X, type LucideIcon } from 'lucide-react';
 import { TextPressure } from './TextPressure';
 import { contactMedia } from '../lib/media';
+import { ScrollReveal, createStaggerContainer, createStaggerItem, revealViewport } from './ui/scroll-reveal';
 
 type Contact =
   | {
@@ -112,41 +113,58 @@ export function ContactFooter() {
     <footer id="contact" className="relative pt-12 md:pt-24 pb-32 -mt-32 md:-mt-32 px-6 md:px-12 overflow-hidden z-20 flex justify-center">
       <div className="max-w-[1440px] mx-auto w-full">
         <div className="mb-10 md:mb-24 flex flex-col items-center justify-center w-full space-y-4">
-          <TextPressure
-            text="THANK YOU."
-            highlightWords={['YOU.']}
-            highlightGradient="linear-gradient(45deg, #ec4899, #f97316)"
-            className="tracking-tight text-white flex justify-center text-center flex-nowrap whitespace-nowrap"
-            style={{
-              fontFamily: 'JosefinSansBold, system-ui',
-              fontSize: 'clamp(36px, 12vw, 106px)',
-              fontWeight: 'normal',
-              fontStyle: 'normal',
-              textDecorationLine: 'none',
-              lineHeight: '0.9',
-              textTransform: 'none',
-              transform: 'scaleY(0.85)',
-              transformOrigin: 'top',
-            }}
-          />
-          <div className="max-w-xl text-center text-white/80 text-base md:text-lg font-light tracking-wide leading-relaxed">
+          <ScrollReveal y={96} duration={1.15} radius="26px">
+            <TextPressure
+              text="THANK YOU."
+              highlightWords={['YOU.']}
+              highlightGradient="linear-gradient(45deg, #ec4899, #f97316)"
+              className="tracking-tight text-white flex justify-center text-center flex-nowrap whitespace-nowrap"
+              style={{
+                fontFamily: 'JosefinSansBold, system-ui',
+                fontSize: 'clamp(36px, 12vw, 106px)',
+                fontWeight: 'normal',
+                fontStyle: 'normal',
+                textDecorationLine: 'none',
+                lineHeight: '0.9',
+                textTransform: 'none',
+                transform: 'scaleY(0.85)',
+                transformOrigin: 'top',
+              }}
+            />
+          </ScrollReveal>
+          <ScrollReveal
+            className="max-w-xl"
+            contentClassName="text-center text-white/80 text-base md:text-lg font-light tracking-wide leading-relaxed"
+            y={42}
+            delay={0.16}
+            duration={0.9}
+            radius="18px"
+          >
             <span className="md:hidden">Let's create something together.</span>
             <span className="hidden md:inline">Let's create something together. Feel free to reach out for freelance opportunities or creative collaborations.</span>
-          </div>
+          </ScrollReveal>
         </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8 mb-32 perspective-1000 w-full max-w-sm md:max-w-none mx-auto">
+        <motion.div
+          className="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8 mb-32 perspective-1000 w-full max-w-sm md:max-w-none mx-auto"
+          variants={createStaggerContainer(0.14, 0.04)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={revealViewport}
+        >
           {contacts.map((contact) => (
             <Fragment key={contact.id}>
-              <ContactCard
-                contact={contact}
-                copiedId={copiedId}
-                handleCopy={handleCopy}
-                setIsQrModalOpen={setIsQrModalOpen}
-              />
+              <motion.div variants={createStaggerItem(0, 48)}>
+                <ContactCard
+                  contact={contact}
+                  copiedId={copiedId}
+                  handleCopy={handleCopy}
+                  setIsQrModalOpen={setIsQrModalOpen}
+                />
+              </motion.div>
             </Fragment>
           ))}
-        </div>
+        </motion.div>
 
         <div className="border-t border-white/10 pt-12 flex items-center justify-center">
           <p className="text-white/40 text-xs md:text-sm font-mono text-center mb-4 md:mb-0">

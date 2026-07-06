@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TextPressure } from './TextPressure';
 import { galleryMedia, projectMedia } from '../lib/media';
+import { ScrollReveal, createStaggerItem, revealViewport } from './ui/scroll-reveal';
 
 // 1. Manually interleaved order so Landscapes (L) and Portraits (P) are beautifully mixed
 // original ids: Portraits: [7, 8, 10, 12, 15, 17], Landscapes/Wide: [1,2,3,4,5,6,9,11,13,14,16]
@@ -183,26 +184,35 @@ export function Gallery() {
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div className="flex flex-col space-y-2 md:space-y-4">
-              <TextPressure 
-                text="Gallery" 
-                highlightWords={['Gallery', 'GALLERY']}
-                className="tracking-tight text-white text-left"
-                style={{
-                  fontFamily: 'JosefinSansBold, system-ui',
-                  fontSize: '106px',
-                  fontWeight: 'normal',
-                  fontStyle: 'normal',
-                  textDecorationLine: 'none',
-                  lineHeight: '95px',
-                  textTransform: 'none',
-                  transform: 'scaleY(0.85)',
-                  transformOrigin: 'top'
-                }}
-              />
+              <ScrollReveal y={94} duration={1.15} radius="26px">
+                <TextPressure 
+                  text="Gallery" 
+                  highlightWords={['Gallery', 'GALLERY']}
+                  className="tracking-tight text-white text-left"
+                  style={{
+                    fontFamily: 'JosefinSansBold, system-ui',
+                    fontSize: '106px',
+                    fontWeight: 'normal',
+                    fontStyle: 'normal',
+                    textDecorationLine: 'none',
+                    lineHeight: '95px',
+                    textTransform: 'none',
+                    transform: 'scaleY(0.85)',
+                    transformOrigin: 'top'
+                  }}
+                />
+              </ScrollReveal>
             </div>
-            <div className="max-w-xs md:max-w-sm text-white/80 text-base md:text-lg font-light tracking-wide leading-relaxed pb-0 text-right w-full md:w-auto self-end">
+            <ScrollReveal
+              className="max-w-xs md:max-w-sm w-full md:w-auto self-end"
+              contentClassName="text-white/80 text-base md:text-lg font-light tracking-wide leading-relaxed pb-0 text-right"
+              y={48}
+              delay={0.16}
+              duration={0.9}
+              radius="18px"
+            >
               A curated collection of visual experiments.
-            </div>
+            </ScrollReveal>
           </div>
 
           <div className="w-full max-w-[1440px] mx-auto flex flex-col gap-4 md:gap-6">
@@ -219,9 +229,13 @@ export function Gallery() {
                   const ar = dynamicARs[item.id] || getFallbackAR(item.id);
 
                   return (
-                    <div
+                    <motion.div
                       key={item.id}
                       className="relative overflow-hidden rounded-xl bg-[#111] border border-white/10 group cursor-pointer"
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={revealViewport}
+                      variants={createStaggerItem(globalIndex * 0.035, 42)}
                       onMouseEnter={() => setHoveredIndex(globalIndex)}
                       style={{
                         // Core Math Magic: By giving them flex-grow exactly equal to their ratio, 
@@ -246,10 +260,10 @@ export function Gallery() {
                           }
                         }}
                         // 0 cropping occurs because the container mathematically perfectly mimics the image's proportions
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 will-change-transform block"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.045] will-change-transform block"
                         referrerPolicy="no-referrer"
                       />
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -346,7 +360,7 @@ export function Gallery() {
                                       }));
                                     }
                                   }}
-                                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none transform-gpu" 
+                                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.045] pointer-events-none transform-gpu" 
                                   referrerPolicy="no-referrer" 
                                 />
                               </>

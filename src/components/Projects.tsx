@@ -3,6 +3,7 @@ import { TextPressure } from './TextPressure';
 import { ArrowUpRight, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { projectMedia } from '../lib/media';
+import { ScrollReveal, createStaggerContainer, createStaggerItem, revealViewport } from './ui/scroll-reveal';
 
 const projects = [
   {
@@ -112,42 +113,53 @@ export function Projects() {
       <div className="max-w-[1440px] mx-auto relative z-10 w-full">
         <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div className="flex flex-col space-y-2 md:space-y-4">
-            <TextPressure 
-              text="Selected" 
-              disableHover={true}
-              className="tracking-tight text-white text-left whitespace-nowrap"
-              style={{
-                fontFamily: 'JosefinSansBold, system-ui',
-                fontSize: 'min(106px, 21.5vw)',
-                fontWeight: 'normal',
-                fontStyle: 'normal',
-                textDecorationLine: 'none',
-                lineHeight: '0.9',
-                textTransform: 'none',
-                transform: 'scaleY(0.85)',
-                transformOrigin: 'bottom left'
-              }}
-            />
-            <TextPressure 
-              text="Works" 
-              highlightWords={['Works']}
-              className="tracking-tight text-white text-left whitespace-nowrap"
-              style={{
-                fontFamily: 'JosefinSansBold, system-ui',
-                fontSize: 'min(106px, 21.5vw)',
-                fontWeight: 'normal',
-                fontStyle: 'normal',
-                textDecorationLine: 'none',
-                lineHeight: '0.9',
-                textTransform: 'none',
-                transform: 'scaleY(0.85)',
-                transformOrigin: 'top left'
-              }}
-            />
+            <ScrollReveal y={92} duration={1.15} radius="26px">
+              <TextPressure 
+                text="Selected" 
+                disableHover={true}
+                className="tracking-tight text-white text-left whitespace-nowrap"
+                style={{
+                  fontFamily: 'JosefinSansBold, system-ui',
+                  fontSize: 'min(106px, 21.5vw)',
+                  fontWeight: 'normal',
+                  fontStyle: 'normal',
+                  textDecorationLine: 'none',
+                  lineHeight: '0.9',
+                  textTransform: 'none',
+                  transform: 'scaleY(0.85)',
+                  transformOrigin: 'bottom left'
+                }}
+              />
+            </ScrollReveal>
+            <ScrollReveal y={110} delay={0.08} duration={1.2} radius="26px">
+              <TextPressure 
+                text="Works" 
+                highlightWords={['Works']}
+                className="tracking-tight text-white text-left whitespace-nowrap"
+                style={{
+                  fontFamily: 'JosefinSansBold, system-ui',
+                  fontSize: 'min(106px, 21.5vw)',
+                  fontWeight: 'normal',
+                  fontStyle: 'normal',
+                  textDecorationLine: 'none',
+                  lineHeight: '0.9',
+                  textTransform: 'none',
+                  transform: 'scaleY(0.85)',
+                  transformOrigin: 'top left'
+                }}
+              />
+            </ScrollReveal>
           </div>
-          <div className="max-w-xs md:max-w-sm text-white/80 text-base md:text-lg font-light tracking-wide leading-relaxed pb-4 md:pb-6 text-left w-full md:w-auto">
+          <ScrollReveal
+            className="max-w-xs md:max-w-sm w-full md:w-auto"
+            contentClassName="text-white/80 text-base md:text-lg font-light tracking-wide leading-relaxed pb-4 md:pb-6 text-left"
+            y={48}
+            delay={0.18}
+            duration={0.9}
+            radius="18px"
+          >
             Visual Design. & AIGC.
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Floating preview image portal */}
@@ -159,7 +171,7 @@ export function Projects() {
             transform: `translate3d(${smoothPosition.x + 30}px, ${smoothPosition.y - 180}px, 0)`,
             opacity: isVisible ? 1 : 0,
             scale: isVisible ? 1 : 0.8,
-            transition: "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            transition: "opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), scale 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
           <div className="relative w-[480px] h-[300px] lg:w-[600px] lg:h-[340px] bg-[#111] overflow-hidden">
@@ -170,10 +182,10 @@ export function Projects() {
                 alt={project.title}
                 decoding="async"
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
                 style={{
                   opacity: hoveredIndex === index ? 1 : 0,
-                  scale: hoveredIndex === index ? 1 : 1.15,
+                  scale: hoveredIndex === index ? 1 : 1.08,
                   filter: hoveredIndex === index ? "none" : "blur(8px)",
                 }}
                 referrerPolicy="no-referrer"
@@ -185,14 +197,21 @@ export function Projects() {
         </div>
 
         {/* Project List */}
-        <div className="space-y-0 w-full mt-10 md:mt-24">
+        <motion.div
+          className="space-y-0 w-full mt-10 md:mt-24"
+          variants={createStaggerContainer(0.12, 0.04)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={revealViewport}
+        >
           {projects.map((project, index) => (
-            <button
+            <motion.button
               key={project.id}
               onClick={() => project.detailsImage && setSelectedProject(project)}
               className="group block w-full text-left cursor-pointer"
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
+              variants={createStaggerItem(index * 0.03, 52)}
             >
               <div className="relative py-8 md:py-10 border-t border-white/10 transition-all duration-300 ease-out hover:border-white/30">
                 {/* Background highlight on hover */}
@@ -207,7 +226,14 @@ export function Projects() {
                 <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-10 px-0 sm:px-4">
                   {/* Mobile Preview Image */}
                   <div className="block md:hidden w-full aspect-[16/9] rounded-xl overflow-hidden mb-2">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" decoding="async" />
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.045]"
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
 
                   <div className="flex-1 min-w-0">
@@ -273,12 +299,12 @@ export function Projects() {
                   </span>
                 </div>
               </div>
-            </button>
+            </motion.button>
           ))}
 
           {/* Bottom border for last item */}
           <div className="border-t border-white/10" />
-        </div>
+        </motion.div>
       </div>
     </section>
 
