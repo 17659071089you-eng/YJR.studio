@@ -1,5 +1,5 @@
-import { motion, type Variants, type Transition } from 'motion/react';
-import type { ReactNode } from 'react';
+import { motion, useInView, type Variants, type Transition } from 'motion/react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { cn } from '../../lib/utils';
 
 export const revealViewport = {
@@ -64,22 +64,43 @@ export function ScrollReveal({
   radius = '20px',
   transition,
 }: ScrollRevealProps) {
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(contentRef, { ...revealViewport, amount });
+  const [hasRevealed, setHasRevealed] = useState(false);
+
+  useEffect(() => {
+    if (isInView) {
+      setHasRevealed(true);
+      return;
+    }
+
+    const fallbackTimer = window.setTimeout(() => {
+      setHasRevealed(true);
+    }, 1600);
+
+    return () => window.clearTimeout(fallbackTimer);
+  }, [isInView]);
+
+  const hiddenState = {
+    opacity: 0,
+    y,
+    filter: `blur(${blur}px)`,
+    clipPath: `inset(0 0 100% 0 round ${radius})`,
+  } as const;
+
+  const visibleState = {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    clipPath: `inset(0 0 0% 0 round ${radius})`,
+  } as const;
+
   return (
     <div className={cn('overflow-hidden', className)}>
       <motion.div
-        initial={{
-          opacity: 0,
-          y,
-          filter: `blur(${blur}px)`,
-          clipPath: `inset(0 0 100% 0 round ${radius})`,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          clipPath: `inset(0 0 0% 0 round ${radius})`,
-        }}
-        viewport={{ ...revealViewport, amount }}
+        ref={contentRef}
+        initial={hiddenState}
+        animate={hasRevealed ? visibleState : hiddenState}
         transition={
           transition ?? {
             delay,
