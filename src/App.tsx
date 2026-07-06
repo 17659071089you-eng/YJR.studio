@@ -101,13 +101,10 @@ export default function App() {
               [62, 49, 242],
               [120, 0, 255],
             ]}
-            dotSize={isMobile ? 4 : 6}
-            totalSize={isMobile ? 24 : 34}
+            dotSize={isMobile ? 5 : 7}
+            totalSize={isMobile ? 22 : 30}
             showGradient={false}
-            opacity={isMobile ? 0.14 : 0.18}
-            showSecondaryLayer={false}
-            showGlow={false}
-            animated={false}
+            opacity={0.24}
           />
         )}
       </div>

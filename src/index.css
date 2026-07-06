@@ -91,7 +91,7 @@ body[style*="overflow: hidden"] .global-bg-effect {
 
 .pixel-grid-overlay__glow {
   animation: pixel-grid-pulse 12s ease-in-out infinite alternate;
-  filter: blur(32px);
+  filter: blur(48px);
   will-change: transform, opacity;
 }
 
@@ -106,10 +106,10 @@ body[style*="overflow: hidden"] .global-bg-effect {
     transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translate3d(-12px, -8px, 0);
+    transform: translate3d(-18px, -12px, 0);
   }
   100% {
-    transform: translate3d(-24px, -16px, 0);
+    transform: translate3d(-36px, -24px, 0);
   }
 }
 

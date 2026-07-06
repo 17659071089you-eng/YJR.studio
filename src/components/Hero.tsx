@@ -80,7 +80,7 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-0 opacity-80"
+        className="absolute inset-0 w-full h-full z-[2] opacity-80"
         style={{
           maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
@@ -90,7 +90,7 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-[5] flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 w-full h-full z-[1] flex items-center justify-center pointer-events-none"
         style={{
           maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
@@ -98,7 +98,7 @@ export function Hero() {
       >
         <div
           id="hero-colored-area"
-          className="absolute z-[6] w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
+          className="absolute z-[3] w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
 
         <motion.video
@@ -131,13 +131,10 @@ export function Hero() {
               [62, 49, 242],
               [120, 0, 255],
             ]}
-            dotSize={isMobile ? 4 : 6}
-            totalSize={isMobile ? 24 : 32}
+            dotSize={isMobile ? 5 : 7}
+            totalSize={isMobile ? 20 : 28}
             showGradient={false}
-            opacity={isMobile ? 0.16 : 0.24}
-            showSecondaryLayer={!isMobile}
-            showGlow={!isMobile}
-            animated={!isMobile}
+            opacity={0.28}
           />
         )}
       </div>
