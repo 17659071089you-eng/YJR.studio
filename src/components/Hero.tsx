@@ -90,7 +90,7 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-[8] flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 w-full h-full z-[4] flex items-center justify-center pointer-events-none"
         style={{
           maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
@@ -98,7 +98,7 @@ export function Hero() {
       >
         <div
           id="hero-colored-area"
-          className="absolute z-[9] w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
+          className="absolute z-[5] w-[81%] md:w-[40%] h-[57vh] md:h-[38vh] translate-y-[calc(-10%-80px)] md:translate-y-[-6%] md:translate-x-[-2%] pointer-events-auto"
         />
 
         <motion.video
