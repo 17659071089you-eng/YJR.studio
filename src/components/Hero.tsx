@@ -80,16 +80,6 @@ export function Hero() {
       />
 
       <div
-        className="absolute inset-0 w-full h-full z-0 opacity-80"
-        style={{
-          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-          background:
-            'radial-gradient(circle at 50% 35%, rgba(62,49,242,0.35), transparent 26%), radial-gradient(circle at 50% 55%, rgba(120,0,255,0.22), transparent 30%), linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.82) 45%, rgba(0,0,0,1) 100%)',
-        }}
-      />
-
-      <div
         className="absolute inset-0 w-full h-full z-10 flex items-center justify-center pointer-events-none"
         style={{
           maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
